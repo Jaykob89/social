@@ -1,35 +1,54 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css'
-const MyPosts = () => {
-    return <div>
-            My posts
+import Post from "./Post/Post";
+
+
+type postsType = {
+    id: number
+    message: string
+    likesCount: number
+}
+
+type myPostPropsType = {
+    posts: Array<postsType>
+    addPost: () => void
+    newText:string
+    changeNewText:(newText:string)=>void
+
+}
+
+
+const MyPosts = (props: myPostPropsType) => {
+
+    // let posts = [
+    //     {id: 1, message: 'Hi, how are You', likesCount: 125},
+    //     {id: 2, message: "It's my first post", likesCount: 23},
+    // ]
+    let postsElement = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
+
+
+    let addPost = () => {
+            props.addPost()
+    }
+
+    let onPostChange = (e:ChangeEvent<HTMLTextAreaElement>)=>{
+        props.changeNewText(e.currentTarget.value)
+    }
+
+    return <div className={s.postBlock}>
+        <h3>My posts</h3>
+        <div>
             <div>
-                <textarea></textarea>
-                <button>Add post</button>
-
+                <textarea onChange={onPostChange}  value={props.newText}/>
             </div>
-            <div className = {s.posts}>
-                <div className ={s.item}>
-                    <img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxLkbtTa0kfmKizxJgqECQLdlt_xq1R2jEQQ&usqp=CAU"/>
-                    Post 1
-                </div>
-                <div className = {s.item}>
-                    <img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxLkbtTa0kfmKizxJgqECQLdlt_xq1R2jEQQ&usqp=CAU"/>
-                    Post 2
-                </div>
-                <div className = {s.item}>
-                    <img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxLkbtTa0kfmKizxJgqECQLdlt_xq1R2jEQQ&usqp=CAU"/>
-                    Post 3
-                </div>
-                <div className = {s.item}>
-                    Post 4
-                </div>
-                <div className = {s.item}>
-                    Post 5
-                </div>
-
+            <div>
+                <button onClick={addPost}>Add post</button>
             </div>
         </div>
+        <div className={s.posts}>
+            {postsElement}
+        </div>
+    </div>
 }
 
 
