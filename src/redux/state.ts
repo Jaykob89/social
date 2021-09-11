@@ -29,7 +29,20 @@ export type RootStateType = {
     sidebar: SidebarType
 }
 
-let store = {
+export type StoreType = {
+    _state:RootStateType
+    addPost:(postText:string)=>void
+    changeNewText:(newText:string)=>void
+    addMessage:(messageText:string)=>void
+    changeNewMessageText:(newMessageText:string)=>void
+    _callSubscriber:()=>void
+    subscribe:(observer:()=>void)=>void
+    getState:()=>RootStateType
+    dispatch:(action:any)=>void
+
+}
+
+let store= {
     _state: {
         profilePage: {
             posts: [
@@ -58,10 +71,11 @@ let store = {
         },
         sidebar: {}
     },
+
     getState(){
        return this._state;
     },
-    _callSubscriber(state: RootStateType) {
+    _callSubscriber(state:RootStateType) {
         console.log("state changed")
     },
     addPost() {
@@ -93,8 +107,35 @@ let store = {
         this._callSubscriber(this._state)
     },
 
-    subscribe(observer: (state: RootStateType) => void) {
+    subscribe(observer: (observer:RootStateType) => void) {
         this._callSubscriber = observer
+    },
+
+    dispatch(action:any) { // {type: 'ADD-POST'}
+        if (action.type ==='ADD-POST'){
+            let newPost: postsType = {
+                id: 5,
+                message: this._state.profilePage.newPostText,
+                likesCount: 0
+            };
+            this._state.profilePage.posts.push(newPost)
+            this._state.profilePage.newPostText = '';
+            this._callSubscriber(this._state)
+        }else if(action.type ==='UPDATE-NEW-POST-TEXT') {
+            this._state.profilePage.newPostText = action.newText;
+            this._callSubscriber(this._state)
+        }else if (action.type ==='ADD-MESSAGE') {
+            let newMessage: messageType = {
+                id: 6,
+                message: this._state.massagesPage.newMessageText
+            }
+            this._state.massagesPage.messages.push(newMessage)
+            this._state.massagesPage.newMessageText = ''
+            this._callSubscriber(this._state)
+        }else if (action.type === 'UPTATE-NEW-MESSAGE-TEXT'){
+            this._state.massagesPage.newMessageText = action.messageText;
+            this._callSubscriber(this._state)
+        }
     }
 
 }
