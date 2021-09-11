@@ -1,6 +1,7 @@
 import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
+import {addPostAC, tcarActionType, updateNewPostTextAC} from "../../../redux/state";
 
 
 type postsType = {
@@ -11,10 +12,10 @@ type postsType = {
 
 type myPostPropsType = {
     posts: Array<postsType>
-    addPost: () => void
+    // addPost: () => void
     newText:string
-    changeNewText:(newText:string)=>void
-
+    // changeNewText:(newText:string)=>void
+    dispatch:(action:tcarActionType)=>void
 }
 
 
@@ -28,11 +29,11 @@ const MyPosts = (props: myPostPropsType) => {
 
 
     let addPost = () => {
-            props.addPost()
+            props.dispatch(addPostAC())
     }
 
     let onPostChange = (e:ChangeEvent<HTMLTextAreaElement>)=>{
-        props.changeNewText(e.currentTarget.value)
+        props.dispatch(updateNewPostTextAC(e.currentTarget.value))
     }
 
     return <div className={s.postBlock}>

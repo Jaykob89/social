@@ -30,19 +30,53 @@ export type RootStateType = {
 }
 
 export type StoreType = {
-    _state:RootStateType
-    addPost:(postText:string)=>void
-    changeNewText:(newText:string)=>void
-    addMessage:(messageText:string)=>void
-    changeNewMessageText:(newMessageText:string)=>void
-    _callSubscriber:()=>void
-    subscribe:(observer:()=>void)=>void
-    getState:()=>RootStateType
-    dispatch:(action:any)=>void
-
+    _state: RootStateType
+    // addPost: (postText: string) => void
+    // changeNewText: (newText: string) => void
+    // addMessage: (messageText: string) => void
+    // changeNewMessageText: (newMessageText: string) => void
+    _callSubscriber: () => void
+    subscribe: (observer: () => void) => void
+    getState: () => RootStateType
+    dispatch: (action: tcarActionType) => void
 }
 
-let store= {
+
+export type tcarActionType =
+    ReturnType<typeof addPostAC>
+    | ReturnType<typeof updateNewPostTextAC>
+    | ReturnType<typeof updateNewMessageTextAC>
+    | ReturnType<typeof addMessageAC>
+
+
+export let addPostAC = () => {
+    return {
+        type: "ADD-POST"
+    } as const
+}
+
+export let updateNewPostTextAC = (newText: string) => {
+    return {
+        type: 'UPDATE-NEW-POST-TEXT',
+        newText
+    } as const
+}
+
+export let addMessageAC = () => {
+    return {
+        type: "ADD-MESSAGE"
+    } as const
+}
+
+export let updateNewMessageTextAC = (messageText: string) => {
+    return {
+        type: 'UPDATE-NEW-MESSAGE-TEXT',
+        messageText
+    } as const
+}
+
+
+let store: StoreType = {
     _state: {
         profilePage: {
             posts: [
@@ -72,47 +106,47 @@ let store= {
         sidebar: {}
     },
 
-    getState(){
-       return this._state;
+    getState() {
+        return this._state;
     },
-    _callSubscriber(state:RootStateType) {
+    _callSubscriber() {
         console.log("state changed")
     },
-    addPost() {
-        let newPost: postsType = {
-            id: 5,
-            message: this._state.profilePage.newPostText,
-            likesCount: 0
-        };
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostText = '';
-        this._callSubscriber(this._state)
-    },
-    changeNewText(newText: string) {
-        this._state.profilePage.newPostText = newText;
-        this._callSubscriber(this._state)
-    },
+    // addPost() {
+    //     let newPost: postsType = {
+    //         id: 5,
+    //         message: this._state.profilePage.newPostText,
+    //         likesCount: 0
+    //     };
+    //     this._state.profilePage.posts.push(newPost)
+    //     this._state.profilePage.newPostText = '';
+    //     this._callSubscriber()
+    // },
+    // changeNewText(newText: string) {
+    //     this._state.profilePage.newPostText = newText;
+    //     this._callSubscriber()
+    // },
+    //
+    // addMessage() {
+    //     let newMessage: messageType = {
+    //         id: 6,
+    //         message: this._state.massagesPage.newMessageText
+    //     }
+    //     this._state.massagesPage.messages.push(newMessage)
+    //     this._state.massagesPage.newMessageText = ''
+    //     this._callSubscriber()
+    // },
+    // changeNewMessageText(messageText: string) {
+    //     this._state.massagesPage.newMessageText = messageText;
+    //     this._callSubscriber()
+    // },
 
-    addMessage() {
-        let newMessage: messageType = {
-            id: 6,
-            message: this._state.massagesPage.newMessageText
-        }
-        this._state.massagesPage.messages.push(newMessage)
-        this._state.massagesPage.newMessageText = ''
-        this._callSubscriber(this._state)
-    },
-    changeNewMessageText(messageText: string) {
-        this._state.massagesPage.newMessageText = messageText;
-        this._callSubscriber(this._state)
-    },
-
-    subscribe(observer: (observer:RootStateType) => void) {
+    subscribe(observer) {
         this._callSubscriber = observer
     },
 
-    dispatch(action:any) { // {type: 'ADD-POST'}
-        if (action.type ==='ADD-POST'){
+    dispatch(action) { // {type: 'ADD-POST'}
+        if (action.type === 'ADD-POST') {
             let newPost: postsType = {
                 id: 5,
                 message: this._state.profilePage.newPostText,
@@ -120,21 +154,21 @@ let store= {
             };
             this._state.profilePage.posts.push(newPost)
             this._state.profilePage.newPostText = '';
-            this._callSubscriber(this._state)
-        }else if(action.type ==='UPDATE-NEW-POST-TEXT') {
+            this._callSubscriber()
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
             this._state.profilePage.newPostText = action.newText;
-            this._callSubscriber(this._state)
-        }else if (action.type ==='ADD-MESSAGE') {
+            this._callSubscriber()
+        } else if (action.type === 'ADD-MESSAGE') {
             let newMessage: messageType = {
                 id: 6,
                 message: this._state.massagesPage.newMessageText
             }
             this._state.massagesPage.messages.push(newMessage)
             this._state.massagesPage.newMessageText = ''
-            this._callSubscriber(this._state)
-        }else if (action.type === 'UPTATE-NEW-MESSAGE-TEXT'){
+            this._callSubscriber()
+        } else if (action.type === 'UPDATE-NEW-MESSAGE-TEXT') {
             this._state.massagesPage.newMessageText = action.messageText;
-            this._callSubscriber(this._state)
+            this._callSubscriber()
         }
     }
 
