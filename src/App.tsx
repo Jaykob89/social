@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
 import Dialogs from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
-import {RootStateType, tcarActionType} from "./redux/state";
+import {RootStateType, tcarActionType} from "./redux/store";
 
 type propsType = {
     state: RootStateType

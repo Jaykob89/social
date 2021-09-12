@@ -3,7 +3,8 @@ import {NavLink} from "react-router-dom";
 import s from './Dialogs.module.css'
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
-import {addMessageAC, RootStateType, tcarActionType, updateNewMessageTextAC} from "../../redux/state";
+import {RootStateType, tcarActionType} from "../../redux/store";
+import {updateNewMessageTextAC,addMessageAC} from '../../redux/dialog-reducer'
 
 type  propsType = {
     state:RootStateType

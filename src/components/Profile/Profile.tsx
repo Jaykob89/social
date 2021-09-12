@@ -2,9 +2,7 @@ import React from 'react';
 import s from './Profile.module.css'
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {profilePageType, tcarActionType} from "../../redux/state";
-
-
+import {profilePageType, tcarActionType} from "../../redux/store";
 
 type propsType  = {
     profilePage:profilePageType
@@ -19,6 +17,5 @@ const Profile = (props:propsType) => {
         <MyPosts posts={props.profilePage.posts} newText= {props.newText} dispatch={props.dispatch} />
     </div>
 }
-
 
 export default Profile;

@@ -1,6 +1,9 @@
 import React from "react";
+import {addPostAC, profileReducer, updateNewPostTextAC} from "./profile-reducer";
+import {addMessageAC, dialogReducer, updateNewMessageTextAC} from "./dialog-reducer";
+import {sideBarReducer} from "./sidebar-reducer";
 
-type messageType = {
+export type messageType = {
     id: number
     message: string
 }
@@ -22,7 +25,7 @@ export type  massagesPageType = {
     messages: messageType[]
     newMessageText: string
 }
-type SidebarType = {}
+export type SidebarType = {}
 export type RootStateType = {
     massagesPage: massagesPageType
     profilePage: profilePageType
@@ -47,33 +50,6 @@ export type tcarActionType =
     | ReturnType<typeof updateNewPostTextAC>
     | ReturnType<typeof updateNewMessageTextAC>
     | ReturnType<typeof addMessageAC>
-
-
-export let addPostAC = () => {
-    return {
-        type: "ADD-POST"
-    } as const
-}
-
-export let updateNewPostTextAC = (newText: string) => {
-    return {
-        type: 'UPDATE-NEW-POST-TEXT',
-        newText
-    } as const
-}
-
-export let addMessageAC = () => {
-    return {
-        type: "ADD-MESSAGE"
-    } as const
-}
-
-export let updateNewMessageTextAC = (messageText: string) => {
-    return {
-        type: 'UPDATE-NEW-MESSAGE-TEXT',
-        messageText
-    } as const
-}
 
 
 let store: StoreType = {
@@ -146,32 +122,13 @@ let store: StoreType = {
     },
 
     dispatch(action) { // {type: 'ADD-POST'}
-        if (action.type === 'ADD-POST') {
-            let newPost: postsType = {
-                id: 5,
-                message: this._state.profilePage.newPostText,
-                likesCount: 0
-            };
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.newPostText = '';
-            this._callSubscriber()
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
-            this._state.profilePage.newPostText = action.newText;
-            this._callSubscriber()
-        } else if (action.type === 'ADD-MESSAGE') {
-            let newMessage: messageType = {
-                id: 6,
-                message: this._state.massagesPage.newMessageText
-            }
-            this._state.massagesPage.messages.push(newMessage)
-            this._state.massagesPage.newMessageText = ''
-            this._callSubscriber()
-        } else if (action.type === 'UPDATE-NEW-MESSAGE-TEXT') {
-            this._state.massagesPage.newMessageText = action.messageText;
-            this._callSubscriber()
-        }
-    }
 
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.massagesPage = dialogReducer(this._state.massagesPage, action);
+        this._state.sidebar = sideBarReducer(this._state.sidebar, action);
+
+        this._callSubscriber()
+    }
 }
 
 
