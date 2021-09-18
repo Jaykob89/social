@@ -52,7 +52,7 @@ export type tcarActionType =
     | ReturnType<typeof addMessageAC>
 
 
-let store: StoreType = {
+ let store: StoreType = {
     _state: {
         profilePage: {
             posts: [

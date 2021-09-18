@@ -1,8 +1,6 @@
 import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
-import {tcarActionType} from "../../../redux/store";
-import {addPostAC, updateNewPostTextAC} from "../../../redux/profile-reducer"
 
 type postsType = {
     id: number
@@ -12,15 +10,14 @@ type postsType = {
 
 type myPostPropsType = {
     posts: Array<postsType>
-    // addPost: () => void
+    addPost: () => void
     newText:string
-    // changeNewText:(newText:string)=>void
-    dispatch:(action:tcarActionType)=>void
+    changeNewText:(text:string)=>void
+    // dispatch:(action:tcarActionType)=>void
 }
 
 
 const MyPosts = (props: myPostPropsType) => {
-
     // let posts = [
     //     {id: 1, message: 'Hi, how are You', likesCount: 125},
     //     {id: 2, message: "It's my first post", likesCount: 23},
@@ -28,12 +25,12 @@ const MyPosts = (props: myPostPropsType) => {
     let postsElement = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
 
 
-    let addPost = () => {
-            props.dispatch(addPostAC())
+    let OnAddPost = () => {
+            props.addPost()
     }
 
     let onPostChange = (e:ChangeEvent<HTMLTextAreaElement>)=>{
-        props.dispatch(updateNewPostTextAC(e.currentTarget.value))
+        props.changeNewText(e.currentTarget.value)
     }
 
     return <div className={s.postBlock}>
@@ -43,7 +40,7 @@ const MyPosts = (props: myPostPropsType) => {
                 <textarea onChange={onPostChange}  value={props.newText}/>
             </div>
             <div>
-                <button onClick={addPost}>Add post</button>
+                <button onClick={OnAddPost}>Add post</button>
             </div>
         </div>
         <div className={s.posts}>
