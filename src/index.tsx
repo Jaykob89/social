@@ -3,14 +3,19 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import store, {RootStateType} from './redux/store'
+import {BrowserRouter} from "react-router-dom";
+import {Provider} from "./StoreContext";
+
 
 
 let rerenderEntireTree = (state: RootStateType) => {
 
     ReactDOM.render(
-        <React.StrictMode>
-            <App state={state} dispatch={store.dispatch.bind(store)} store={store}/>
-        </React.StrictMode>,
+        <BrowserRouter>
+            <Provider store={store}>
+                <App/>
+            </Provider>
+        </BrowserRouter>,
         document.getElementById('root')
     )
 }

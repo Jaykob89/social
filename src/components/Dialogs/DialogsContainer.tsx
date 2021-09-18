@@ -1,16 +1,17 @@
 import React, {ChangeEvent} from "react";
 import {RootStateType, StoreType, tcarActionType} from "../../redux/store";
-import {updateNewMessageTextAC,addMessageAC} from '../../redux/dialog-reducer'
+import {updateNewMessageTextAC, addMessageAC} from '../../redux/dialog-reducer'
 import Dialogs from "./Dialogs";
+import StoreContext from "../../StoreContext";
 
 type  propsType = {
-    store:StoreType
+    // store:StoreType
     // dispatch:(action:tcarActionType)=>void
     // newMessageText:string
 }
-const DialogsContainer = (props:propsType) => {
+const DialogsContainer = (props: propsType) => {
 
-    let state = props.store.getState().massagesPage
+
 
     // let messages = [
     //     {id: 1, message: 'Hi'},
@@ -20,18 +21,26 @@ const DialogsContainer = (props:propsType) => {
     //     {id: 5, message: 'Yo'},
     // ]
 
-    let addMessage = ()=> {
-        props.store.dispatch(addMessageAC())
-    }
 
-    let newDialogElementAdd =(text:string)=>{
-        // props.dispatch({type:'UPDATE-NEW-MESSAGE-TEXT',messageText:e.currentTarget.value})
-        props.store.dispatch(updateNewMessageTextAC(text))
-    }
 
-    return (
-        <Dialogs updateNewMessage={newDialogElementAdd} addMessage={addMessage} dialogsPage={state} newMessageText={state.newMessageText}/>
-    )
+    return <StoreContext.Consumer>{
+        (store) => {
+            let state = store.getState().massagesPage
+
+            let addMessage = () => {
+               store.dispatch(addMessageAC())
+            }
+
+            let newDialogElementAdd = (text: string) => {
+                // props.dispatch({type:'UPDATE-NEW-MESSAGE-TEXT',messageText:e.currentTarget.value})
+                store.dispatch(updateNewMessageTextAC(text))
+            }
+            return <Dialogs updateNewMessage={newDialogElementAdd}
+                            addMessage={addMessage} dialogsPage={state}
+                            newMessageText={state.newMessageText}/>
+        }
+    }
+    </StoreContext.Consumer>
 }
 
 export default DialogsContainer;

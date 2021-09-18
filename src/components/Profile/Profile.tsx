@@ -9,7 +9,7 @@ type propsType  = {
     // profilePage:profilePageType
     // newText:string
     // dispatch:(action:tcarActionType)=>void
-    store:StoreType
+    // store:StoreType
 }
 
 const Profile = (props:propsType) => {
@@ -17,11 +17,10 @@ const Profile = (props:propsType) => {
     return <div>
         <ProfileInfo/>
         <MyPostsContainer
-                        store={props.store}
+
                         // posts={props.profilePage.posts}
                           // newText= {props.newText}
                           // dispatch={props.dispatch}
-
         />
     </div>
 }
