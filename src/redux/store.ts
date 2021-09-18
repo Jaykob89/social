@@ -136,7 +136,6 @@ export type tcarActionType =
 //     console.log("test")
 // }
 
-
 // export let state: RootStateType = {
 //     profilePage: {
 //         posts: [
@@ -165,7 +164,6 @@ export type tcarActionType =
 //     },
 //     sidebar: {}
 // }
-
 // export let addPost = () => {
 //     let newPost: postsType = {
 //         id: 5,
