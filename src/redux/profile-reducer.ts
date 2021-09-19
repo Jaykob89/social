@@ -1,4 +1,4 @@
-import {postsType, profilePageType, RootStateType, tcarActionType} from "./store";
+import {postsType, tcarActionType} from "./store";
 
 
 let initialState =  {
@@ -11,18 +11,24 @@ let initialState =  {
 
 export const profileReducer = (state = initialState, action: tcarActionType) => {
     switch (action.type) {
-        case "ADD-POST":
+        case "ADD-POST": {
             let newPost: postsType = {
                 id: 5,
                 message: state.newPostText,
                 likesCount: 0
             };
-            state.posts.push(newPost)
-            state.newPostText = '';
-            return state
-        case "UPDATE-NEW-POST-TEXT":
-            state.newPostText = action.newText;
-            return state
+            return {
+                ...state,
+                newPostText: '',
+                posts: [...state.posts, newPost]
+            }
+        }
+        case "UPDATE-NEW-POST-TEXT":{
+            return {
+                ...state,
+                newPostText: action.newText
+            }
+    }
         default:
             return state
     }

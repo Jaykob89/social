@@ -1,4 +1,4 @@
-import {massagesPageType, messageType, tcarActionType} from "./store";
+import {messageType, tcarActionType} from "./store";
 
 
 let initialState = {
@@ -23,18 +23,23 @@ let initialState = {
 export const dialogReducer = (state=initialState, action: tcarActionType) => {
 
     switch (action.type) {
-        case 'ADD-MESSAGE':
+        case 'ADD-MESSAGE': {
             let newMessage: messageType = {
                 id: 6,
                 message: state.newMessageText
             }
-            state.messages.push(newMessage)
-            state.newMessageText = '';
-            return state;
-
-        case 'UPDATE-NEW-MESSAGE-TEXT':
-            state.newMessageText = action.messageText;
-            return state;
+            return {
+                ...state,
+                newMessageText: '',
+                messages: [...state.messages, newMessage]
+            };
+        }
+        case 'UPDATE-NEW-MESSAGE-TEXT': {
+            return {
+                ...state,
+                newMessageText: action.messageText
+            };
+        }
         default:
             return state
     }
