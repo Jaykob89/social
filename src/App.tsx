@@ -6,6 +6,7 @@ import Profile from "./components/Profile/Profile";
 import {BrowserRouter, Route} from "react-router-dom";
 import {RootStateType, StoreType, tcarActionType} from "./redux/store";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import {Users} from "./components/Users/Users";
 
 // type propsType = {
 //     state: RootStateType
@@ -25,14 +26,9 @@ const App = () => {
                         <DialogsContainer
                         />}
                     />
-                    <Route path='/profile' render={() => <Profile
+                    <Route path='/profile' render={() => <Profile/>}/>
 
-                        // profilePage={props.state.profilePage}
-                        // newText={props.state.profilePage.newPostText}
-                        // dispatch={props.dispatch}
-
-
-                    />}/>
+                    <Route path='/users' render={() =><Users/>}/>
                 </div>
 
             </div>
