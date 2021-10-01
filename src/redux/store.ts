@@ -2,7 +2,7 @@ import React from "react";
 import {addPostAC, profileReducer, updateNewPostTextAC} from "./profile-reducer";
 import {addMessageAC, dialogReducer, updateNewMessageTextAC} from "./dialog-reducer";
 import {sideBarReducer} from "./sidebar-reducer";
-import {followAC} from "./users-reducer";
+import {followAC, setUsersAC, unFollowAC} from "./users-reducer";
 
 export type messageType = {
     id: number
@@ -52,6 +52,8 @@ export type tcarActionType =
     | ReturnType<typeof updateNewMessageTextAC>
     | ReturnType<typeof addMessageAC>
     | ReturnType<typeof followAC>
+    | ReturnType<typeof unFollowAC>
+    | ReturnType<typeof setUsersAC>
 
 
  let store: StoreType = {
