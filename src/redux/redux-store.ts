@@ -7,10 +7,10 @@ import {usersReducer} from "./users-reducer";
 
 let rootReducer = combineReducers(
     {
-        profilePage:profileReducer,
-        massagesPage:dialogReducer,
-        sideBar:sideBarReducer,
-        users:usersReducer,
+        profilePage: profileReducer,
+        massagesPage: dialogReducer,
+        sideBar: sideBarReducer,
+        users: usersReducer,
     });
 
 
