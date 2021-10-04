@@ -1,9 +1,7 @@
 import React from 'react';
-import s from './Profile.module.css'
-import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {profilePageType, StoreType, tcarActionType} from "../../redux/store";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import {profilePageType} from "../../redux/store";
 
 type propsType  = {
     // profilePage:profilePageType
@@ -12,10 +10,10 @@ type propsType  = {
     // store:StoreType
 }
 
-const Profile = (props:propsType) => {
+const Profile = (props:any) => {
 
     return <div>
-        <ProfileInfo/>
+        <ProfileInfo profile={props.profile}/>
         <MyPostsContainer
 
                         // posts={props.profilePage.posts}

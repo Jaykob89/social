@@ -1,5 +1,5 @@
 import React from "react";
-import {addPostAC, profileReducer, updateNewPostTextAC} from "./profile-reducer";
+import {addPostAC, profileReducer, setUserProfile, updateNewPostTextAC} from "./profile-reducer";
 import {addMessageAC, dialogReducer, updateNewMessageTextAC} from "./dialog-reducer";
 import {sideBarReducer} from "./sidebar-reducer";
 import {
@@ -24,9 +24,11 @@ export type postsType = {
     message: string
     likesCount: number
 }
+
 export type profilePageType = {
     posts: postsType[]
     newPostText: string
+    profile:any
 }
 export type  massagesPageType = {
     dialogs: Array<dialogsType>
@@ -64,6 +66,8 @@ export type tcarActionType =
     | ReturnType<typeof setCurrentPages>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof setUserProfile>
+
 
 
 
@@ -75,7 +79,8 @@ export type tcarActionType =
                 {id: 1, message: 'Hi, how are You', likesCount: 125},
                 {id: 2, message: "It's my first post", likesCount: 23},
             ],
-            newPostText: ""
+            newPostText: "",
+            profile: null
         },
         massagesPage: {
             dialogs: [
