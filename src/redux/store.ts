@@ -29,7 +29,7 @@ export type postsType = {
 export type profilePageType = {
     posts: postsType[]
     newPostText: string
-    profile:null | profileType
+    profile: profileType | null
 }
 export type  massagesPageType = {
     dialogs: Array<dialogsType>

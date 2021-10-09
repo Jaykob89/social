@@ -8,14 +8,15 @@ type photosType = {
     large: string
 }
 
-export type profileType = null | {
+export type profileType = {
     photos: photosType,
     aboutMe: string
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
-    contacts: {}
-
+    contacts: {
+        gitHub:string
+    }
 }
 
 const Profile = (props: any) => {
