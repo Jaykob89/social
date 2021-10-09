@@ -10,6 +10,7 @@ import {
     toggleIsFetching,
     unFollow
 } from "./users-reducer";
+import {profileType} from "../components/Profile/Profile";
 
 export type messageType = {
     id: number
@@ -28,7 +29,7 @@ export type postsType = {
 export type profilePageType = {
     posts: postsType[]
     newPostText: string
-    profile:any
+    profile:null | profileType
 }
 export type  massagesPageType = {
     dialogs: Array<dialogsType>

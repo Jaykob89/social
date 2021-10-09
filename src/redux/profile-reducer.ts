@@ -1,4 +1,5 @@
 import {postsType, profilePageType, tcarActionType} from "./store";
+import {profileType} from "../components/Profile/Profile";
 
 
 const SETUSEPROFILE = "SET_USER_PROFILE";
@@ -9,7 +10,7 @@ let initialState =  {
             {id: 2, message: "It's my first post", likesCount: 23},
         ],
         newPostText: "",
-        profile:null
+        profile: null
     }
 
 export const profileReducer = (state = initialState, action: tcarActionType) => {
@@ -48,7 +49,7 @@ export let addPostAC = () => {
         type: "ADD-POST"
     } as const
 }
-export let setUserProfile = (profile:any) => {
+export let setUserProfile = (profile:profileType) => {
     return {
         type: SETUSEPROFILE,
         profile

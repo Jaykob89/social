@@ -3,22 +3,30 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {profilePageType} from "../../redux/store";
 
-type propsType  = {
-    // profilePage:profilePageType
-    // newText:string
-    // dispatch:(action:tcarActionType)=>void
-    // store:StoreType
+type photosType = {
+    small: string
+    large: string
 }
 
-const Profile = (props:any) => {
+export type profileType = null | {
+    photos: photosType,
+    aboutMe: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: {}
+
+}
+
+const Profile = (props: any) => {
 
     return <div>
         <ProfileInfo profile={props.profile}/>
         <MyPostsContainer
 
-                        // posts={props.profilePage.posts}
-                          // newText= {props.newText}
-                          // dispatch={props.dispatch}
+            // posts={props.profilePage.posts}
+            // newText= {props.newText}
+            // dispatch={props.dispatch}
         />
     </div>
 }
