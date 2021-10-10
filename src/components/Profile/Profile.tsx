@@ -1,7 +1,6 @@
 import React from 'react';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import {profilePageType} from "../../redux/store";
 
 type photosType = {
     small: string
@@ -15,7 +14,8 @@ export type profileType = {
     lookingForAJobDescription: string
     fullName: string
     contacts: {
-        gitHub:string
+        [key: string]: string | null
+            //.....
     }
 }
 

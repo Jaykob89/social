@@ -1,18 +1,17 @@
 import React from 'react';
 import s from './ProfileInfo.module.css'
-import {profilePageType} from "../../../redux/store";
 import {Preloader} from "../../common/preloader/Preloader";
+import {profileType} from "../Profile";
 
 type propsType = {
-    profile:profilePageType
+    profile:profileType | null
 }
 
-const ProfileInfo = (props:any) => {
+const ProfileInfo = (props:propsType) => {
 
     if (!props.profile) {
         return <Preloader/>
     }
-
 
     return <div>
         <div>

@@ -1,7 +1,6 @@
 import React from "react";
 import {addPostAC, profileReducer, setUserProfile, updateNewPostTextAC} from "./profile-reducer";
 import {addMessageAC, dialogReducer, updateNewMessageTextAC} from "./dialog-reducer";
-import {sideBarReducer} from "./sidebar-reducer";
 import {
     follow,
     setCurrentPages,
@@ -69,95 +68,91 @@ export type tcarActionType =
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof setUserProfile>
 
-
-
-
-
- let store: StoreType = {
-    _state: {
-        profilePage: {
-            posts: [
-                {id: 1, message: 'Hi, how are You', likesCount: 125},
-                {id: 2, message: "It's my first post", likesCount: 23},
-            ],
-            newPostText: "",
-            profile: null
-        },
-        massagesPage: {
-            dialogs: [
-                {id: 1, name: 'Dimych'},
-                {id: 2, name: 'Andrew'},
-                {id: 3, name: 'Sveta'},
-                {id: 4, name: 'Sasha'},
-                {id: 5, name: 'Victor'},
-                {id: 6, name: 'Valera'},
-            ],
-            messages: [
-                {id: 1, message: 'Hi'},
-                {id: 2, message: 'How is your IT'},
-                {id: 3, message: 'Yo'},
-                {id: 4, message: 'Yo'},
-                {id: 5, message: 'Yo'},
-            ],
-            newMessageText: ''
-        },
-        sidebar: {}
-    },
-
-    getState() {
-        return this._state;
-    },
-    _callSubscriber() {
-        console.log("state changed")
-    },
-    // addPost() {
-    //     let newPost: postsType = {
-    //         id: 5,
-    //         message: this._state.profilePage.newPostText,
-    //         likesCount: 0
-    //     };
-    //     this._state.profilePage.posts.push(newPost)
-    //     this._state.profilePage.newPostText = '';
-    //     this._callSubscriber()
-    // },
-    // changeNewText(newText: string) {
-    //     this._state.profilePage.newPostText = newText;
-    //     this._callSubscriber()
-    // },
-    //
-    // addMessage() {
-    //     let newMessage: messageType = {
-    //         id: 6,
-    //         message: this._state.massagesPage.newMessageText
-    //     }
-    //     this._state.massagesPage.messages.push(newMessage)
-    //     this._state.massagesPage.newMessageText = ''
-    //     this._callSubscriber()
-    // },
-    // changeNewMessageText(messageText: string) {
-    //     this._state.massagesPage.newMessageText = messageText;
-    //     this._callSubscriber()
-    // },
-
-    subscribe(observer) {
-        this._callSubscriber = observer
-    },
-
-    dispatch(action) { // {type: 'ADD-POST'}
-
-        this._state.profilePage = profileReducer(this._state.profilePage, action);
-        this._state.massagesPage = dialogReducer(this._state.massagesPage, action);
-        this._state.sidebar = sideBarReducer(this._state.sidebar, action);
-
-        this._callSubscriber()
-    }
-}
+//
+//  let store: StoreType = {
+//     _state: {
+//         profilePage: {
+//             posts: [
+//                 {id: 1, message: 'Hi, how are You', likesCount: 125},
+//                 {id: 2, message: "It's my first post", likesCount: 23},
+//             ],
+//             newPostText: "",
+//             profile: null
+//         },
+//         massagesPage: {
+//             dialogs: [
+//                 {id: 1, name: 'Dimych'},
+//                 {id: 2, name: 'Andrew'},
+//                 {id: 3, name: 'Sveta'},
+//                 {id: 4, name: 'Sasha'},
+//                 {id: 5, name: 'Victor'},
+//                 {id: 6, name: 'Valera'},
+//             ],
+//             messages: [
+//                 {id: 1, message: 'Hi'},
+//                 {id: 2, message: 'How is your IT'},
+//                 {id: 3, message: 'Yo'},
+//                 {id: 4, message: 'Yo'},
+//                 {id: 5, message: 'Yo'},
+//             ],
+//             newMessageText: ''
+//         },
+//         sidebar: {}
+//     },
+//
+//     getState() {
+//         return this._state;
+//     },
+//     _callSubscriber() {
+//         console.log("state changed")
+//     },
+//     // addPost() {
+//     //     let newPost: postsType = {
+//     //         id: 5,
+//     //         message: this._state.profilePage.newPostText,
+//     //         likesCount: 0
+//     //     };
+//     //     this._state.profilePage.posts.push(newPost)
+//     //     this._state.profilePage.newPostText = '';
+//     //     this._callSubscriber()
+//     // },
+//     // changeNewText(newText: string) {
+//     //     this._state.profilePage.newPostText = newText;
+//     //     this._callSubscriber()
+//     // },
+//     //
+//     // addMessage() {
+//     //     let newMessage: messageType = {
+//     //         id: 6,
+//     //         message: this._state.massagesPage.newMessageText
+//     //     }
+//     //     this._state.massagesPage.messages.push(newMessage)
+//     //     this._state.massagesPage.newMessageText = ''
+//     //     this._callSubscriber()
+//     // },
+//     // changeNewMessageText(messageText: string) {
+//     //     this._state.massagesPage.newMessageText = messageText;
+//     //     this._callSubscriber()
+//     // },
+//
+//     subscribe(observer) {
+//         this._callSubscriber = observer
+//     },
+//
+//     dispatch(action) { // {type: 'ADD-POST'}
+//
+//         this._state.profilePage = profileReducer(this._state.profilePage, action);
+//         this._state.massagesPage = dialogReducer(this._state.massagesPage, action);
+//         this._state.sidebar = sideBarReducer(this._state.sidebar, action);
+//
+//         this._callSubscriber()
+//     }
+// }
 
 
 // let rerenderEntireTree = (state:RootStateType) => {
 //     console.log("test")
 // }
-
 // export let state: RootStateType = {
 //     profilePage: {
 //         posts: [
@@ -221,4 +216,4 @@ export type tcarActionType =
 //     rerenderEntireTree = observer
 // }
 
-export default store;
+// export default store;

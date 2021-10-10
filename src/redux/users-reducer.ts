@@ -7,7 +7,6 @@ const SETCURRENTPAGE = 'SET_CURRENT_PAGE';
 const SETTOTALUSERSCOUNT = 'SET_TOTAL_USERS_COUNT';
 const TOGGLEISFETCHING = 'TOGGLE_IS_FETCHING';
 
-
 export type usersType = {
     id: number
     followed: boolean
@@ -26,7 +25,6 @@ export type setUsersType = {
     totalCount: number
 }
 
-
 //
 // export type resultType = {
 //     items: []
@@ -39,7 +37,6 @@ export type setUsersType = {
 //     status: string,
 //     followed: boolean
 // }
-
 
 let initialState: InitialStateType = {
     users: [],
