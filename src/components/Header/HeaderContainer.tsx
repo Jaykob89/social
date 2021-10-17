@@ -21,7 +21,7 @@ type setAuthType = {
     setAuthUserDate: (id:number,email:string,login:string)=>void
 }
 
-type PropsType = ResponseType & setAuthType & mapStateToPropsType
+type PropsType = setAuthType & mapStateToPropsType
 
 class HeaderContainer extends React.Component<PropsType, RootStateType> {
     componentDidMount() {
