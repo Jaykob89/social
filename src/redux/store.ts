@@ -10,6 +10,7 @@ import {
     unFollow
 } from "./users-reducer";
 import {profileType} from "../components/Profile/Profile";
+import {setAuthUserDate} from "./auth-reducer";
 
 export type messageType = {
     id: number
@@ -67,6 +68,7 @@ export type tcarActionType =
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setAuthUserDate >
 
 //
 //  let store: StoreType = {

@@ -13,15 +13,12 @@ type pathParamTypes = {
     userId:string
 }
 
-
-
 type mapStatePropsType = {
     profile: profileType | null
 }
 type mapDispatchPropsType = {
     setUserProfile: (profile: profileType) => void
 }
-
 
 class ProfileContainer extends React.Component<PropsType> {
 
