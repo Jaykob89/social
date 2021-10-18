@@ -1,4 +1,4 @@
-import {postsType, tcarActionType} from "./store";
+import { tcarActionType} from "./store";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -55,7 +55,7 @@ export type InitialStateType = {
 
 }
 
-export const usersReducer = (state = initialState, action: tcarActionType): InitialStateType => {
+export const usersReducer = (state:InitialStateType = initialState, action: tcarActionType): InitialStateType => {
     switch (action.type) {
         case FOLLOW:
             return {

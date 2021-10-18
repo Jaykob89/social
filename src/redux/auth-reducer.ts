@@ -18,7 +18,7 @@ let initialState = {
     isAuth: false
 }
 
-export const authReducer = (state:initialStateType = initialState, action: ActiosType): initialStateType => {
+export const authReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
     switch (action.type) {
         case SET_USER_DATA:
             return {
@@ -30,12 +30,13 @@ export const authReducer = (state:initialStateType = initialState, action: Actio
             return state;
     }
 }
-export type  SetAuthUserDateType =  ReturnType<typeof setAuthUserDate>
-type ActiosType =SetAuthUserDateType
+export type  SetAuthUserDateType = ReturnType<typeof setAuthUserDate>
+type ActionsType = SetAuthUserDateType
+
 export const setAuthUserDate = (userId: number, email: string, login: string) => ({
     type: SET_USER_DATA,
     data: {userId, email, login}
-}as const)
+} as const)
 
 
 export type ResponseType = {
