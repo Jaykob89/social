@@ -7,15 +7,6 @@ import {RootStateType} from "../../redux/store";
 import {AppStateType} from "../../redux/redux-store";
 
 
-type ResponseType = {
-    resultCode: number
-    messages: [],
-    data: {
-        id: number,
-        email: string,
-        login: string
-    }
-}
 
 type setAuthType = {
     setAuthUserDate: (id:number,email:string,login:string)=>void
@@ -25,8 +16,8 @@ type PropsType = setAuthType & mapStateToPropsType
 
 class HeaderContainer extends React.Component<PropsType, RootStateType> {
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true})
-            .then((response: AxiosResponse<ResponseType>) => {
+        axios.get<any>(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true})
+            .then(response => {
                 if (response.data.resultCode === 0) {
                     let {id,login,email} = response.data.data
                     this.props.setAuthUserDate(id,email,login)
@@ -40,7 +31,7 @@ class HeaderContainer extends React.Component<PropsType, RootStateType> {
 }
 type mapStateToPropsType = {
     isAuth:boolean
-    login:string
+    login: string | null
 }
 
 const mapStateToProps = (state: AppStateType):mapStateToPropsType => ({
