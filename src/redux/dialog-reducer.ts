@@ -1,4 +1,4 @@
-import {messageType, tcarActionType} from "./store";
+import {messageType, allACTypes} from "./store";
 
 
 let initialState = {
@@ -20,7 +20,7 @@ let initialState = {
         newMessageText: ''
     }
 
-export const dialogReducer = (state=initialState, action: tcarActionType) => {
+export const dialogReducer = (state=initialState, action: allACTypes) => {
 
     switch (action.type) {
         case 'ADD-MESSAGE': {

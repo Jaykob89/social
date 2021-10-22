@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
 import {BrowserRouter, Route} from "react-router-dom";
@@ -14,6 +14,9 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 // }
 
 const App = () => {
+
+   
+
     return (
         <BrowserRouter>
             <div className='app-wrapper'>

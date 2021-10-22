@@ -6,7 +6,7 @@ import {
     setCurrentPages,
     setTotalUsersCount,
     setUsers,
-    toggleIsFetching,
+    toggleIsFetching, toggleIsFollowing,
     unFollow
 } from "./users-reducer";
 import {profileType} from "../components/Profile/Profile";
@@ -52,11 +52,10 @@ export type StoreType = {
     _callSubscriber: () => void
     subscribe: (observer: () => void) => void
     getState: () => RootStateType
-    dispatch: (action: tcarActionType) => void
+    dispatch: (action: allACTypes) => void
 }
 
-
-export type tcarActionType =
+export type allACTypes =
     ReturnType<typeof addPostAC>
     | ReturnType<typeof updateNewPostTextAC>
     | ReturnType<typeof updateNewMessageTextAC>
@@ -68,7 +67,8 @@ export type tcarActionType =
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof setUserProfile>
-    | ReturnType<typeof setAuthUserDate >
+    | ReturnType<typeof setAuthUserDate>
+    | ReturnType<typeof toggleIsFollowing>
 
 //
 //  let store: StoreType = {

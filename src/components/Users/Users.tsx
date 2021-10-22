@@ -13,6 +13,8 @@ type propsType = {
     users: usersType[]
     follow: (userId: number) => void
     unfollow: (userId: number) => void
+    toggleIsFollowing: (isFetching: boolean,userId:number) => void
+    followingInProgress:Array<number>
 }
 
 export let Users = (props: propsType) => {
@@ -37,31 +39,35 @@ export let Users = (props: propsType) => {
                              </NavLink>
                      </div>
                     <div> {u.followed ?
-                        <button onClick={() => {
+                        <button disabled={props.followingInProgress.some(id=>id===u.id)} onClick={() => {
+                            props.toggleIsFollowing(true,u.id)
                             axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
                                 withCredentials: true,
-                                headers:{
-                                    "API-KEY":"0c14d68f-3ce5-4b41-9c9a-1254c8255029"
+                                headers: {
+                                    "API-KEY": "f8b19b87-e8a3-40e0-aba2-9e995bb36bef"
                                 }
                             })
                                 .then((response: any) => {
                                     if (response.data.resultCode === 0) {
                                         props.unfollow(u.id)
                                     }
+                                    props.toggleIsFollowing(false,u.id)
                                 })
 
                         }}>Unfollow</button>
-                        : <button onClick={() => {
+                        : <button disabled={props.followingInProgress.some(id=>id===u.id)} onClick={() => {
+                            props.toggleIsFollowing(true,u.id)
                             axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
                                 withCredentials: true,
-                                headers:{
-                                    "API-KEY":"0c14d68f-3ce5-4b41-9c9a-1254c8255029"
+                                headers: {
+                                    "API-KEY": "f8b19b87-e8a3-40e0-aba2-9e995bb36bef"
                                 }
                             })
                                 .then((response: any) => {
                                     if (response.data.resultCode === 0) {
                                         props.follow(u.id);
                                     }
+                                    props.toggleIsFollowing(false,u.id)
                                 })
 
 

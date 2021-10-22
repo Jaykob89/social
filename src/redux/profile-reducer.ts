@@ -1,4 +1,4 @@
-import {postsType, profilePageType, tcarActionType} from "./store";
+import {postsType, profilePageType, allACTypes} from "./store";
 import {profileType} from "../components/Profile/Profile";
 
 
@@ -13,7 +13,7 @@ let initialState =  {
         profile: null
     }
 
-export const profileReducer = (state = initialState, action: tcarActionType) => {
+export const profileReducer = (state = initialState, action: allACTypes) => {
     switch (action.type) {
         case "ADD-POST": {
             let newPost: postsType = {

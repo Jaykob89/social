@@ -1,7 +1,7 @@
-import {SidebarType, tcarActionType} from "./store";
+import {SidebarType, allACTypes} from "./store";
 
 let initialState = {}
 
-export const sideBarReducer = (state=initialState,action:tcarActionType)=> {
+export const sideBarReducer = (state=initialState,action:allACTypes)=> {
     return state
 }

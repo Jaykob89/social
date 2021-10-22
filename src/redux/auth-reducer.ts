@@ -1,5 +1,3 @@
-import {tcarActionType} from "./store";
-
 const SET_USER_DATA = 'SET_USER_DATA';
 
 type initialStateType = {
