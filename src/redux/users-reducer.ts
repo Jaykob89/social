@@ -123,10 +123,10 @@ export const getUsers = (currentPage: number, pageSize: number) => {
 
         usersAPI.getUsers(currentPage, pageSize)
             .then((data: any) => {
-                debugger
                 dispatch(toggleIsFetching(false))
                 dispatch(setUsers(data.items))
                 dispatch(setTotalUsersCount(data.totalCount))
+                dispatch(setCurrentPages(currentPage))
             });
     }
 }

@@ -3,7 +3,7 @@ import styles from "./users.module.css";
 import userPhoto from "../../assets/images/user-profile.png";
 import {usersType} from "../../redux/users-reducer";
 import {NavLink} from 'react-router-dom';
-import {usersAPI} from "../../api/api";
+
 
 type propsType = {
     totalUsersCount: number
@@ -13,7 +13,6 @@ type propsType = {
     users: usersType[]
     follow: (userId: number) => void
     unfollow: (userId: number) => void
-    toggleIsFollowing: (isFetching: boolean, userId: number) => void
     followingInProgress: Array<number>
 }
 

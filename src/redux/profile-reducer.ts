@@ -1,5 +1,8 @@
 import {postsType, profilePageType, allACTypes} from "./store";
 import {profileType} from "../components/Profile/Profile";
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
+import {toggleIsFollowing, unFollowSuccess} from "./users-reducer";
 
 
 const SETUSEPROFILE = "SET_USER_PROFILE";
@@ -60,4 +63,16 @@ export let updateNewPostTextAC = (newText: string) => {
         type: 'UPDATE-NEW-POST-TEXT',
         newText
     } as const
+}
+
+export const ProfileTC = (userId:string) => {
+    return (dispatch: Dispatch) => {
+        if (!userId) {
+            userId = "2";
+        }
+        usersAPI.getProfile(userId)
+            .then(response => {
+                dispatch(setUserProfile(response.data))
+            });
+    }
 }
