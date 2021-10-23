@@ -2,12 +2,12 @@ import React from "react";
 import {addPostAC, setUserProfile, updateNewPostTextAC} from "./profile-reducer";
 import {addMessageAC, updateNewMessageTextAC} from "./dialog-reducer";
 import {
-    follow,
+    follow, followSuccess,
     setCurrentPages,
     setTotalUsersCount,
     setUsers,
     toggleIsFetching, toggleIsFollowing,
-    unFollow
+    unFollow, unFollowSuccess
 } from "./users-reducer";
 import {profileType} from "../components/Profile/Profile";
 import {setAuthUserDate} from "./auth-reducer";
@@ -56,8 +56,8 @@ export type allACTypes =
     | ReturnType<typeof updateNewPostTextAC>
     | ReturnType<typeof updateNewMessageTextAC>
     | ReturnType<typeof addMessageAC>
-    | ReturnType<typeof follow>
-    | ReturnType<typeof unFollow>
+    | ReturnType<typeof followSuccess>
+    | ReturnType<typeof unFollowSuccess>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPages>
     | ReturnType<typeof setTotalUsersCount>
