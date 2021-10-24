@@ -1,8 +1,8 @@
-import {postsType, profilePageType, allACTypes} from "./store";
+import {postsType, allACTypes} from "./store";
 import {profileType} from "../components/Profile/Profile";
 import {Dispatch} from "redux";
 import {usersAPI} from "../api/api";
-import {toggleIsFollowing, unFollowSuccess} from "./users-reducer";
+
 
 
 const SETUSEPROFILE = "SET_USER_PROFILE";
@@ -16,7 +16,13 @@ let initialState =  {
         profile: null
     }
 
-export const profileReducer = (state = initialState, action: allACTypes) => {
+    type initialStateType = {
+        posts:Array<postsType>
+        newPostText:string
+        profile:profileType | null
+    }
+
+export const profileReducer = (state:initialStateType = initialState, action: allACTypes):initialStateType => {
     switch (action.type) {
         case "ADD-POST": {
             let newPost: postsType = {

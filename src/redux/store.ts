@@ -2,12 +2,12 @@ import React from "react";
 import {addPostAC, setUserProfile, updateNewPostTextAC} from "./profile-reducer";
 import {addMessageAC, updateNewMessageTextAC} from "./dialog-reducer";
 import {
-    follow, followSuccess,
+    followSuccess,
     setCurrentPages,
     setTotalUsersCount,
     setUsers,
     toggleIsFetching, toggleIsFollowing,
-    unFollow, unFollowSuccess
+    unFollowSuccess
 } from "./users-reducer";
 import {profileType} from "../components/Profile/Profile";
 import {setAuthUserDate} from "./auth-reducer";

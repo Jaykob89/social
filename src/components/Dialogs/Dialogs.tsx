@@ -2,17 +2,19 @@ import React, {ChangeEvent} from "react";
 import s from './Dialogs.module.css'
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
-import {massagesPageType, messageType, RootStateType} from "../../redux/store";
+import {massagesPageType} from "../../redux/store";
+import {Redirect} from "react-router-dom";
 
 
 type  propsType = {
-    dialogsPage:massagesPageType
+    dialogsPage: massagesPageType
     // dispatch:(action:tcarActionType)=>void
-    newMessageText:string
-    updateNewMessage:(text:string)=>void
-    addMessage:()=>void
+    newMessageText: string
+    updateNewMessage: (text: string) => void
+    addMessage: () => void
+    isAuth: boolean
 }
-const Dialogs = (props:propsType) => {
+const Dialogs = (props: propsType) => {
 
     // let messages = [
     //     {id: 1, message: 'Hi'},
@@ -27,16 +29,18 @@ const Dialogs = (props:propsType) => {
     let dialogsElements = state.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
     let messagesElement = state.messages.map(message => <Message message={message.message}/>)
 
-    let OnAddMessage = ()=> {
+    let OnAddMessage = () => {
         // props.dispatch(addMessageAC())
         props.addMessage();
     }
 
-    let newDialogElementAdd =(e:ChangeEvent<HTMLTextAreaElement>)=>{
+    let newDialogElementAdd = (e: ChangeEvent<HTMLTextAreaElement>) => {
         // props.dispatch({type:'UPDATE-NEW-MESSAGE-TEXT',messageText:e.currentTarget.value})
         // props.dispatch(updateNewMessageTextAC(e.currentTarget.value))
         props.updateNewMessage(e.currentTarget.value)
     }
+
+    if (!props.isAuth) return <Redirect to={'/login'}/>
 
     return (
         <div className={s.dialogs}>
