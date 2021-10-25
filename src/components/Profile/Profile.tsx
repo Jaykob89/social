@@ -15,7 +15,7 @@ export type profileType = {
     fullName: string
     contacts: {
         [key: string]: string | null
-            //.....
+        //.....
     }
 }
 
@@ -25,9 +25,6 @@ const Profile = (props: any) => {
         <ProfileInfo profile={props.profile}/>
         <MyPostsContainer
 
-            // posts={props.profilePage.posts}
-            // newText= {props.newText}
-            // dispatch={props.dispatch}
         />
     </div>
 }

@@ -4,10 +4,10 @@ import {Preloader} from "../../common/preloader/Preloader";
 import {profileType} from "../Profile";
 
 type propsType = {
-    profile:profileType | null
+    profile: profileType | null
 }
 
-const ProfileInfo = (props:propsType) => {
+const ProfileInfo = (props: propsType) => {
 
     if (!props.profile) {
         return <Preloader/>

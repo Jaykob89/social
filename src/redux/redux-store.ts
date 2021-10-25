@@ -13,10 +13,10 @@ let rootReducer = combineReducers(
         massagesPage: dialogReducer,
         sideBar: sideBarReducer,
         users: usersReducer,
-        auth:authReducer,
+        auth: authReducer,
     });
 
 
 export type AppStateType = ReturnType<typeof rootReducer>
 
-export let store: Store = createStore(rootReducer,applyMiddleware(thunk));
+export let store: Store = createStore(rootReducer, applyMiddleware(thunk));

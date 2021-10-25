@@ -8,15 +8,8 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {Login} from "./Login/Login";
 
-// type propsType = {
-//     state: RootStateType
-//     dispatch: (action: tcarActionType) => void
-//     store: StoreType
-// }
 
 const App = () => {
-
-
 
     return (
         <BrowserRouter>

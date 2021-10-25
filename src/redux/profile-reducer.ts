@@ -3,8 +3,6 @@ import {profileType} from "../components/Profile/Profile";
 import {Dispatch} from "redux";
 import {usersAPI} from "../api/api";
 
-
-
 const SETUSEPROFILE = "SET_USER_PROFILE";
 
 let initialState =  {
