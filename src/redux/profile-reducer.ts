@@ -5,22 +5,22 @@ import {usersAPI} from "../api/api";
 
 const SETUSEPROFILE = "SET_USER_PROFILE";
 
-let initialState =  {
-        posts: [
-            {id: 1, message: 'Hi, how are You', likesCount: 125},
-            {id: 2, message: "It's my first post", likesCount: 23},
-        ],
-        newPostText: "",
-        profile: null
-    }
+let initialState = {
+    posts: [
+        {id: 1, message: 'Hi, how are You', likesCount: 125},
+        {id: 2, message: "It's my first post", likesCount: 23},
+    ],
+    newPostText: "",
+    profile: null
+}
 
-    type initialStateType = {
-        posts:Array<postsType>
-        newPostText:string
-        profile:profileType | null
-    }
+type initialStateType = {
+    posts: Array<postsType>
+    newPostText: string
+    profile: profileType | null
+}
 
-export const profileReducer = (state:initialStateType = initialState, action: allACTypes):initialStateType => {
+export const profileReducer = (state: initialStateType = initialState, action: allACTypes): initialStateType => {
     switch (action.type) {
         case "ADD-POST": {
             let newPost: postsType = {
@@ -34,18 +34,18 @@ export const profileReducer = (state:initialStateType = initialState, action: al
                 posts: [...state.posts, newPost]
             }
         }
-        case "UPDATE-NEW-POST-TEXT":{
+        case "UPDATE-NEW-POST-TEXT": {
             return {
                 ...state,
                 newPostText: action.newText
             }
-    }
-    case SETUSEPROFILE:{
+        }
+        case SETUSEPROFILE: {
             return {
                 ...state,
                 profile: action.profile
             }
-    }
+        }
         default:
             return state
     }
@@ -56,7 +56,7 @@ export let addPostAC = () => {
         type: "ADD-POST"
     } as const
 }
-export let setUserProfile = (profile:profileType) => {
+export let setUserProfile = (profile: profileType) => {
     return {
         type: SETUSEPROFILE,
         profile
@@ -69,7 +69,7 @@ export let updateNewPostTextAC = (newText: string) => {
     } as const
 }
 
-export const ProfileTC = (userId:string) => {
+export const ProfileTC = (userId: string) => {
     return (dispatch: Dispatch) => {
         if (!userId) {
             userId = "2";

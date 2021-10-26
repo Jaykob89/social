@@ -1,4 +1,4 @@
-import {SidebarType, allACTypes} from "./store";
+import {allACTypes} from "./store";
 
 let initialState = {}
 
