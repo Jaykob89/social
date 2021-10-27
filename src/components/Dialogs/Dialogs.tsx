@@ -6,14 +6,14 @@ import {massagesPageType} from "../../redux/store";
 import {Redirect} from "react-router-dom";
 
 
-type  propsType = {
+export type DialogPropsType = {
     dialogsPage: massagesPageType
     newMessageText: string
     updateNewMessage: (text: string) => void
     addMessage: () => void
     isAuth: boolean
 }
-const Dialogs = (props: propsType) => {
+const Dialogs = (props: DialogPropsType) => {
 
     let state = props.dialogsPage
 
