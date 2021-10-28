@@ -27,9 +27,6 @@ const Dialogs = (props: DialogPropsType) => {
     let newDialogElementAdd = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.updateNewMessage(e.currentTarget.value)
     }
-
-    if (!props.isAuth) return <Redirect to={'/login'}/>
-
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>

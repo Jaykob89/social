@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
 import {BrowserRouter, Route} from "react-router-dom";
@@ -7,7 +7,6 @@ import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {Login} from "./Login/Login";
-
 
 const App = () => {
 
@@ -18,8 +17,7 @@ const App = () => {
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs' render={() =>
-                        <DialogsContainer
-                        />}
+                        <DialogsContainer/>}
                     />
                     <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
 

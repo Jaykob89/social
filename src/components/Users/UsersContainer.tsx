@@ -12,7 +12,7 @@ import {AppStateType} from "../../redux/redux-store";
 import {RootStateType} from "../../redux/store";
 import {Preloader} from "../common/preloader/Preloader";
 import {withAuthRedirect} from "../../HOC/withAuthRedirect";
-
+import {compose} from "redux";
 
 class UsersContainerComponent extends React.Component<UsersPropsType, RootStateType> {
     componentDidMount() {
@@ -47,7 +47,6 @@ type MapStatePropsType = {
     currentPage: number
     isFetching: boolean
     followingInProgress: Array<number>
-
 }
 
 let mapStateToProps = (state: AppStateType): MapStatePropsType => {
@@ -71,9 +70,16 @@ type mapDispatchToPropsType = {
 
 export type UsersPropsType = MapStatePropsType & mapDispatchToPropsType
 
-let withRedirect = withAuthRedirect(UsersContainerComponent)
-
-export default connect(mapStateToProps, {
+ connect(mapStateToProps, {
     follow, unFollow, setCurrentPages,
     toggleIsFollowing, getUsers
-})(withRedirect)
+})
+
+
+export default compose<React.ComponentType> (
+    withAuthRedirect,
+    connect(mapStateToProps, {
+        follow, unFollow, setCurrentPages,
+        toggleIsFollowing, getUsers
+    })
+)(UsersContainerComponent)

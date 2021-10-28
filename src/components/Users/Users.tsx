@@ -4,7 +4,6 @@ import userPhoto from "../../assets/images/user-profile.png";
 import {usersType} from "../../redux/users-reducer";
 import {NavLink} from 'react-router-dom';
 
-
 type propsType = {
     totalUsersCount: number
     pageSize: number
