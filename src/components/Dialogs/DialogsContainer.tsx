@@ -4,7 +4,6 @@ import Dialogs, {DialogPropsType} from "./Dialogs";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {AppStateType} from "../../redux/redux-store";
-import {Redirect} from "react-router-dom";
 import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 
 
@@ -12,7 +11,6 @@ let mapStateToProps = (state: AppStateType) => {
     return {
         dialogsPage: state.massagesPage,
         newMessageText: state.massagesPage.newMessageText,
-        isAuth: state.auth.isAuth
     }
 }
 
