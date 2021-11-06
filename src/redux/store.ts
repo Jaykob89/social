@@ -1,5 +1,5 @@
 import React from "react";
-import {addPostAC, setUserProfile, updateNewPostTextAC} from "./profile-reducer";
+import {addPostAC, setStatus, setUserProfile, updateNewPostTextAC} from "./profile-reducer";
 import {addMessageAC, updateNewMessageTextAC} from "./dialog-reducer";
 import {
     followSuccess,
@@ -65,4 +65,5 @@ export type allACTypes =
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setAuthUserDate>
     | ReturnType<typeof toggleIsFollowing>
+    | ReturnType<typeof setStatus>
 

@@ -6,7 +6,6 @@ type photosType = {
     small: string
     large: string
 }
-
 export type profileType = {
     photos: photosType,
     aboutMe: string
@@ -19,10 +18,17 @@ export type profileType = {
     }
 }
 
-const Profile = (props: any) => {
+type profileInfoType = {
+    profile: profileType | null
+    status: string
+    updateStatus: (status: string) => void
+}
+
+
+const Profile = (props: profileInfoType) => {
 
     return <div>
-        <ProfileInfo profile={props.profile}/>
+        <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
         <MyPostsContainer
 
         />
