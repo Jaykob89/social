@@ -24,14 +24,11 @@ type profileInfoType = {
     updateStatus: (status: string) => void
 }
 
-
 const Profile = (props: profileInfoType) => {
 
     return <div>
         <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
-        <MyPostsContainer
-
-        />
+        <MyPostsContainer/>
     </div>
 }
 

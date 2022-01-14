@@ -1,6 +1,6 @@
 import React from "react";
 import {addPostAC, setStatus, setUserProfile, updateNewPostTextAC} from "./profile-reducer";
-import {addMessageAC, updateNewMessageTextAC} from "./dialog-reducer";
+import {addMessageAC} from "./dialog-reducer";
 import {
     followSuccess,
     setCurrentPages,
@@ -54,7 +54,6 @@ export type StoreType = {
 export type allACTypes =
     ReturnType<typeof addPostAC>
     | ReturnType<typeof updateNewPostTextAC>
-    | ReturnType<typeof updateNewMessageTextAC>
     | ReturnType<typeof addMessageAC>
     | ReturnType<typeof followSuccess>
     | ReturnType<typeof unFollowSuccess>
