@@ -2,7 +2,6 @@ import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {TextArea} from "../../common/FormsControl/FormsControl";
 import {maxLengthCreator, required} from "../../../utils/validators/validators";
-
 type FormDataType = {
     newDialogElementAdd:string
 }
@@ -23,3 +22,4 @@ const AddMessageForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     )
 }
 export const AddMessageFormRedux = reduxForm<FormDataType>({form: "dialogAddMessageForm"})(AddMessageForm)
+
