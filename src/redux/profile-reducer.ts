@@ -79,9 +79,6 @@ export let updateNewPostTextAC = (newText: string) => {
 
 export const ProfileTC = (userId: string) => {
     return (dispatch: Dispatch) => {
-        if (!userId) {
-            userId = "2";
-        }
         usersAPI.getProfile(userId)
             .then(response => {
                 dispatch(setUserProfile(response.data))

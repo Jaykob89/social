@@ -1,6 +1,6 @@
 import React from "react";
 import {WrappedFieldProps} from "redux-form";
-import styles from './FormsControl.module.css'
+import styles from '../FormsControl/FormsControl.module.css'
 
 
 const FormControl: React.FC<WrappedFieldProps> = ({input, meta: {touched, error}, ...props}) => {

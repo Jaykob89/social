@@ -77,7 +77,6 @@ export type UsersPropsType = MapStatePropsType & mapDispatchToPropsType
 
 
 export default compose<React.ComponentType> (
-    withAuthRedirect,
     connect(mapStateToProps, {
         follow, unFollow, setCurrentPages,
         toggleIsFollowing, getUsers

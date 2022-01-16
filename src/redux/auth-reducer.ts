@@ -2,6 +2,7 @@ import {Dispatch} from "redux";
 import {authApi} from "../api/api";
 import {ThunkDispatch} from "redux-thunk";
 import {allACTypes, StoreType} from "./store";
+import {FormAction, stopSubmit} from "redux-form";
 
 const SET_USER_DATA = 'SET_USER_DATA';
 
@@ -61,15 +62,16 @@ export const getAuthUserData = () => {
             });
     }
 }
-export const login = (email: string, password: string, rememberMe: boolean) => {
-    return (dispatch: ThunkDispatch<StoreType, unknown, allACTypes>) => {
-        authApi.login(email, password, rememberMe)
+export const login = (email: string, password: string, rememberMe: boolean) => (dispatch: ThunkDispatch<StoreType, unknown, allACTypes | FormAction>) => {
+        return authApi.login(email, password, rememberMe)
             .then((response: any) => {
                 if (response.data.resultCode === 0) {
                     dispatch(getAuthUserData())
+                }else {
+                    let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some Error'
+                    dispatch(stopSubmit('login',{_error: message}))
                 }
             });
-    }
 }
 export const logout = () => {
     return (dispatch: ThunkDispatch<StoreType, unknown, allACTypes>) => {
