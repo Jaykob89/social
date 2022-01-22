@@ -6,14 +6,14 @@ import {massagesPageType} from "../../redux/store";
 import {AddMessageFormRedux} from "./AddMessageForm/AddMessageForm";
 
 type FormDataType = {
-    newDialogElementAdd:string
+    newDialogElementAdd: string
 }
 
 export type DialogPropsType = {
     dialogsPage: massagesPageType
     newMessageText: string
     updateNewMessage: (text: string) => void
-    addMessage: (values:string) => void
+    addMessage: (values: string) => void
     isAuth: boolean
 }
 const Dialogs = (props: DialogPropsType) => {
@@ -23,10 +23,7 @@ const Dialogs = (props: DialogPropsType) => {
     let dialogsElements = state.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
     let messagesElement = state.messages.map(message => <Message message={message.message}/>)
 
-    // let OnAddMessage = () => {
-    //     props.addMessage();
-    // }
-    let OnAddMessage = (values:FormDataType) => {
+    let OnAddMessage = (values: FormDataType) => {
         props.addMessage(values.newDialogElementAdd);
     }
     return (
@@ -40,7 +37,7 @@ const Dialogs = (props: DialogPropsType) => {
                 {messagesElement}
 
             </div>
-                 <AddMessageFormRedux onSubmit={OnAddMessage}/>
+            <AddMessageFormRedux onSubmit={OnAddMessage}/>
         </div>
     )
 }

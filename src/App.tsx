@@ -19,7 +19,7 @@ type mapDispatchType = {
 }
 
 type mapStateToPropsType = {
-    initialized:boolean
+    initialized: boolean
 }
 
 type propsType = mapDispatchType & mapStateToPropsType
@@ -59,7 +59,7 @@ class App extends React.Component<propsType, RootStateType> {
 }
 
 const mapStateToProps = (state: AppStateType) => ({
-    initialized:state.app.initialized
+    initialized: state.app.initialized
 })
 
 export default compose<React.ComponentType>(

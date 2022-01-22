@@ -11,7 +11,6 @@ import {
 } from "./users-reducer";
 import {profileType} from "../components/Profile/Profile";
 import {setAuthUserDate} from "./auth-reducer";
-import {stopSubmit} from "redux-form";
 import {initializedSuccess} from "./app-reducer";
 
 export type messageType = {

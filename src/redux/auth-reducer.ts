@@ -63,15 +63,15 @@ export const getAuthUserData = () => {
     }
 }
 export const login = (email: string, password: string, rememberMe: boolean) => (dispatch: ThunkDispatch<StoreType, unknown, allACTypes | FormAction>) => {
-        return authApi.login(email, password, rememberMe)
-            .then((response: any) => {
-                if (response.data.resultCode === 0) {
-                    dispatch(getAuthUserData())
-                }else {
-                    let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some Error'
-                    dispatch(stopSubmit('login',{_error: message}))
-                }
-            });
+    return authApi.login(email, password, rememberMe)
+        .then((response: any) => {
+            if (response.data.resultCode === 0) {
+                dispatch(getAuthUserData())
+            } else {
+                let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some Error'
+                dispatch(stopSubmit('login', {_error: message}))
+            }
+        });
 }
 export const logout = () => {
     return (dispatch: ThunkDispatch<StoreType, unknown, allACTypes>) => {

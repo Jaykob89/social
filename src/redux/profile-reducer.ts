@@ -52,7 +52,7 @@ export const profileReducer = (state: initialStateType = initialState, action: a
     }
 }
 
-export let addPostAC = (newPostText:string) => {
+export let addPostAC = (newPostText: string) => {
     return {
         type: "ADD-POST",
         newPostText,
@@ -104,7 +104,7 @@ export const updateStatusTC = (status: string) => {
         profileAPI.updateStatus(status)
             .then(response => {
                 // if (response.resultCode === 0) {
-                    dispatch(setStatus(status))
+                dispatch(setStatus(status))
                 // }
             });
     }

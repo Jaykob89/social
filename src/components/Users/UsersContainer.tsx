@@ -3,7 +3,6 @@ import {Users} from "./Users";
 import {connect} from "react-redux";
 import {
     follow, requestUsers,
-    InitialStateType,
     setCurrentPages,
     toggleIsFollowing,
     unFollow, usersType,
@@ -54,18 +53,8 @@ type MapStatePropsType = {
     isFetching: boolean
     followingInProgress: Array<number>
 }
-//
-// let mapStateToProps = (state: AppStateType): MapStatePropsType => {
-//     return {
-//         usersPage: state.users,
-//         pageSize: state.users.pageSize,
-//         totalUsersCount: state.users.totalUsersCount,
-//         currentPage: state.users.currentPage,
-//         isFetching: state.users.isFetching,
-//         followingInProgress: state.users.followingInProgress
-//     }
-// }
-let mapStateToProps = (state: AppStateType):MapStatePropsType => {
+
+let mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         users: getUsers(state),
         pageSize: getPageSize(state),
@@ -86,13 +75,13 @@ type mapDispatchToPropsType = {
 
 export type UsersPropsType = MapStatePropsType & mapDispatchToPropsType
 
- connect(mapStateToProps, {
+connect(mapStateToProps, {
     follow, unFollow, setCurrentPages,
     toggleIsFollowing, getUsers: requestUsers
 })
 
 
-export default compose<React.ComponentType> (
+export default compose<React.ComponentType>(
     connect(mapStateToProps, {
         follow, unFollow, setCurrentPages,
         toggleIsFollowing, getUsers: requestUsers

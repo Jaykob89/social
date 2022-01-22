@@ -2,8 +2,9 @@
     grid-area: h;
     background-color: green;
 }
+
 .header img {
-    width:20px ;
+    width: 20px;
 }
 
 .loginBlock {
