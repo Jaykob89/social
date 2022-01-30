@@ -15,7 +15,7 @@ let mapStateToProps = (state: AppStateType) => {
 
 let mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        addMessage: (newDialogElementAdd:string) => {
+        addMessage: (newDialogElementAdd: string) => {
             dispatch(addMessageAC(newDialogElementAdd))
         }
     }

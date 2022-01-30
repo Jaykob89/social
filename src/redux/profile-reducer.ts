@@ -47,6 +47,12 @@ export const profileReducer = (state: initialStateType = initialState, action: a
                 profile: action.profile
             }
         }
+        case
+        "DELETE-POST": {
+            return {
+                ...state,posts: state.posts.filter(p=>p.id!=action.postId)
+            }
+        }
         default:
             return state
     }
@@ -68,6 +74,12 @@ export let setStatus = (status: string) => {
     return {
         type: SETSTATUS,
         status
+    } as const
+}
+export let deletePostAC = (postId:number) => {
+    return {
+        type: "DELETE-POST",
+        postId
     } as const
 }
 export let updateNewPostTextAC = (newText: string) => {
@@ -94,11 +106,6 @@ export const getStatusTC = (userId: string) => {
     }
 }
 
-type resultType = {
-    resultCode: number
-    messages: string,
-    data: {}
-}
 export const updateStatusTC = (status: string) => {
     return (dispatch: Dispatch) => {
         profileAPI.updateStatus(status)
