@@ -1,6 +1,8 @@
 import {allACTypes} from "./store";
 import {Dispatch} from "redux";
 import {usersAPI} from "../api/api";
+import {AxiosResponse} from "axios";
+import {ResponseType} from "./auth-reducer";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -117,41 +119,35 @@ export const toggleIsFollowing = (isFetching: boolean, userId: number) => ({
     userId
 }) as const
 
-export const requestUsers = (page: number, pageSize: number) => {
-    return (dispatch: Dispatch) => {
-        dispatch(toggleIsFetching(true))
-        dispatch(setCurrentPages(page))
+export const requestUsers = (page: number, pageSize: number) => async (dispatch: Dispatch) => {
+    dispatch(toggleIsFetching(true))
+    dispatch(setCurrentPages(page))
 
-        usersAPI.getUsers(page, pageSize)
-            .then((data: any) => {
-                dispatch(toggleIsFetching(false))
-                dispatch(setUsers(data.items))
-                dispatch(setTotalUsersCount(data.totalCount))
-                dispatch(setCurrentPages(page))
-            });
-    }
+    let data: setUsersType = await usersAPI.getUsers(page, pageSize)
+
+    dispatch(toggleIsFetching(false))
+    dispatch(setUsers(data.items))
+    dispatch(setTotalUsersCount(data.totalCount))
+    dispatch(setCurrentPages(page))
 }
+
 export const follow = (uId: number) => {
-    return (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch) => {
         dispatch(toggleIsFollowing(true, uId))
-        usersAPI.follow(uId)
-            .then((response: any) => {
-                if (response.data.resultCode === 0) {
-                    dispatch(followSuccess(uId));
-                }
-                dispatch(toggleIsFollowing(false, uId))
-            })
+        let response: AxiosResponse<ResponseType> = await usersAPI.follow(uId)
+        if (response.data.resultCode === 0) {
+            dispatch(followSuccess(uId));
+        }
+        dispatch(toggleIsFollowing(false, uId))
     }
 }
 export const unFollow = (uId: number) => {
-    return (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch) => {
         dispatch(toggleIsFollowing(true, uId))
-        usersAPI.unFollow(uId)
-            .then((response: any) => {
-                if (response.data.resultCode === 0) {
-                    dispatch(unFollowSuccess(uId));
-                }
-                dispatch(toggleIsFollowing(false, uId))
-            })
+        let response: AxiosResponse<ResponseType> = await usersAPI.unFollow(uId)
+        if (response.data.resultCode === 0) {
+            dispatch(unFollowSuccess(uId));
+        }
+        dispatch(toggleIsFollowing(false, uId))
     }
 }

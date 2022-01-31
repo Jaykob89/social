@@ -2,6 +2,7 @@ import {postsType, allACTypes} from "./store";
 import {profileType} from "../components/Profile/Profile";
 import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../api/api";
+import {AxiosResponse} from "axios";
 
 const SETUSEPROFILE = "SET_USER_PROFILE";
 const SETSTATUS = "SET_STATUS";
@@ -50,7 +51,7 @@ export const profileReducer = (state: initialStateType = initialState, action: a
         case
         "DELETE-POST": {
             return {
-                ...state,posts: state.posts.filter(p=>p.id!=action.postId)
+                ...state, posts: state.posts.filter(p => p.id !== action.postId)
             }
         }
         default:
@@ -76,7 +77,7 @@ export let setStatus = (status: string) => {
         status
     } as const
 }
-export let deletePostAC = (postId:number) => {
+export let deletePostAC = (postId: number) => {
     return {
         type: "DELETE-POST",
         postId
@@ -89,31 +90,21 @@ export let updateNewPostTextAC = (newText: string) => {
     } as const
 }
 
-export const ProfileTC = (userId: string) => {
-    return (dispatch: Dispatch) => {
-        usersAPI.getProfile(userId)
-            .then(response => {
-                dispatch(setUserProfile(response.data))
-            });
-    }
-}
-export const getStatusTC = (userId: string) => {
-    return (dispatch: Dispatch) => {
-        profileAPI.getStatus(userId)
-            .then(response => {
-                dispatch(setStatus(response.data))
-            });
-    }
+export const ProfileTC = (userId: string) => async (dispatch: Dispatch) => {
+    let response = await usersAPI.getProfile(userId)
+    dispatch(setUserProfile(response.data))
 }
 
-export const updateStatusTC = (status: string) => {
-    return (dispatch: Dispatch) => {
-        profileAPI.updateStatus(status)
-            .then(response => {
-                // if (response.resultCode === 0) {
-                dispatch(setStatus(status))
-                // }
-            });
+export const getStatusTC = (userId: string) => async (dispatch: Dispatch) => {
+    let response = await profileAPI.getStatus(userId)
+    dispatch(setStatus(response.data))
+
+}
+
+export const updateStatusTC = (status: string) => async (dispatch: Dispatch) => {
+    let response: AxiosResponse<any> = await profileAPI.updateStatus(status)
+    if (response.data.resultCode === 0) {
+        dispatch(setStatus(status))
     }
 }
 

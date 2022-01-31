@@ -3,8 +3,9 @@ import {authApi} from "../api/api";
 import {ThunkDispatch} from "redux-thunk";
 import {allACTypes, StoreType} from "./store";
 import {FormAction, stopSubmit} from "redux-form";
+import {AxiosResponse} from "axios";
 
-const SET_USER_DATA = 'SET_USER_DATA';
+const SET_USER_DATA = 'samurai-network/auth/SET_USER_DATA';
 
 type initialStateType = {
     userId: number | null,
@@ -52,34 +53,28 @@ export type ResponseType = {
 }
 
 export const getAuthUserData = () => {
-    return (dispatch: Dispatch) => {
-        authApi.me()
-            .then((response: any) => {
-                if (response.data.resultCode === 0) {
-                    let {id, login, email} = response.data.data
-                    dispatch(setAuthUserDate(id, email, login, true))
-                }
-            });
+    return async (dispatch: Dispatch) => {
+        let response: AxiosResponse<ResponseType> = await authApi.me()
+        if (response.data.resultCode === 0) {
+            let {id, login, email} = response.data.data
+            dispatch(setAuthUserDate(id, email, login, true))
+        }
     }
 }
-export const login = (email: string, password: string, rememberMe: boolean) => (dispatch: ThunkDispatch<StoreType, unknown, allACTypes | FormAction>) => {
-    return authApi.login(email, password, rememberMe)
-        .then((response: any) => {
-            if (response.data.resultCode === 0) {
-                dispatch(getAuthUserData())
-            } else {
-                let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some Error'
-                dispatch(stopSubmit('login', {_error: message}))
-            }
-        });
+export const login = (email: string, password: string, rememberMe: boolean) => async (dispatch: ThunkDispatch<StoreType, unknown, allACTypes | FormAction>) => {
+    let response: AxiosResponse<any> = await authApi.login(email, password, rememberMe)
+    if (response.data.resultCode === 0) {
+        await dispatch(getAuthUserData())
+    } else {
+        let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some Error'
+        dispatch(stopSubmit('login', {_error: message}))
+    }
 }
 export const logout = () => {
-    return (dispatch: ThunkDispatch<StoreType, unknown, allACTypes>) => {
-        authApi.logout()
-            .then((response: any) => {
-                if (response.data.resultCode === 0) {
-                    dispatch(setAuthUserDate(null, null, null, false))
-                }
-            });
+    return async (dispatch: ThunkDispatch<StoreType, unknown, allACTypes>) => {
+        let response: AxiosResponse<ResponseType> = await authApi.logout()
+        if (response.data.resultCode === 0) {
+            dispatch(setAuthUserDate(null, null, null, false))
+        }
     }
 }
