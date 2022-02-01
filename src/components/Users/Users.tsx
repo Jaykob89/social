@@ -48,8 +48,11 @@ export let Users = (props: propsType) => {
                 <span><span><div>{u.name}</div>
                         <div>{u.status}</div></span>
                     <span>
-                         <div>{'u.location.city'}</div>
-                         <div>{'u.location.country'}</div>
+
+                         {/*<div>{u.location.city}</div>*/}
+                         {/*<div>{u.location.country}</div>*/}
+                        <div>{'my city'}</div>
+                         <div>{'my country'}</div>
                      </span>
                  </span>
             </div>)}

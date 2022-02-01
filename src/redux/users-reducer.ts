@@ -1,8 +1,7 @@
 import {allACTypes} from "./store";
 import {Dispatch} from "redux";
 import {usersAPI} from "../api/api";
-import {AxiosResponse} from "axios";
-import {ResponseType} from "./auth-reducer";
+import {updateObjectInArray} from "../utils/validators/object-helpers";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -54,6 +53,7 @@ export const usersReducer = (state: InitialStateType = initialState, action: all
         case FOLLOW:
             return {
                 ...state,
+                // users: updateObjectInArray(state.users, action.userId, 'id', {followed: true})
                 users: state.users.map(u => {
                     if (u.id === action.userId) {
                         return {...u, followed: true};
@@ -65,6 +65,7 @@ export const usersReducer = (state: InitialStateType = initialState, action: all
         case UNFOLLOW:
             return {
                 ...state,
+                // users: updateObjectInArray(state.users, action.userId, 'id', {followed: false})
                 users: state.users.map(u => {
                     if (u.id === action.userId) {
                         return {...u, followed: false};
@@ -131,23 +132,23 @@ export const requestUsers = (page: number, pageSize: number) => async (dispatch:
     dispatch(setCurrentPages(page))
 }
 
+const followUnfollowFlow = async (disatch: Dispatch, userId: number, apiMethod: any, actionCreator: any) => {
+    disatch(toggleIsFollowing(true, userId))
+    let response = await apiMethod(userId)
+    if (response.data.resultCode === 0) {
+        disatch(actionCreator(userId))
+    }
+    disatch(toggleIsFollowing(false, userId))
+}
+
 export const follow = (uId: number) => {
     return async (dispatch: Dispatch) => {
-        dispatch(toggleIsFollowing(true, uId))
-        let response: AxiosResponse<ResponseType> = await usersAPI.follow(uId)
-        if (response.data.resultCode === 0) {
-            dispatch(followSuccess(uId));
-        }
-        dispatch(toggleIsFollowing(false, uId))
+        await followUnfollowFlow(dispatch, uId, usersAPI.follow.bind(usersAPI), followSuccess)
     }
 }
+
 export const unFollow = (uId: number) => {
     return async (dispatch: Dispatch) => {
-        dispatch(toggleIsFollowing(true, uId))
-        let response: AxiosResponse<ResponseType> = await usersAPI.unFollow(uId)
-        if (response.data.resultCode === 0) {
-            dispatch(unFollowSuccess(uId));
-        }
-        dispatch(toggleIsFollowing(false, uId))
+        await followUnfollowFlow(dispatch, uId, usersAPI.unFollow.bind(usersAPI), unFollowSuccess)
     }
 }
