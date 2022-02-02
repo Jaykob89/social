@@ -1,7 +1,6 @@
 import {allACTypes} from "./store";
 import {Dispatch} from "redux";
 import {usersAPI} from "../api/api";
-import {updateObjectInArray} from "../utils/validators/object-helpers";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
