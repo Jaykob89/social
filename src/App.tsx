@@ -7,11 +7,11 @@ import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./Login/Login";
-import {connect} from "react-redux";
+import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {RootStateType} from "./redux/store";
 import {initializedApp} from "./redux/app-reducer";
-import {AppStateType} from "./redux/redux-store";
+import {AppStateType, store} from "./redux/redux-store";
 import {Preloader} from "./components/common/preloader/Preloader";
 
 type mapDispatchType = {
@@ -62,8 +62,14 @@ const mapStateToProps = (state: AppStateType) => ({
     initialized: state.app.initialized
 })
 
-export default compose<React.ComponentType>(
+let AppContainer = compose<React.ComponentType>(
     withRouter,
     connect(mapStateToProps, {initializedApp}))(App);
 
-
+export let SamuraiJSApp = () => {
+    return <BrowserRouter>
+        <Provider store={store}>
+            <AppContainer/>
+        </Provider>
+    </BrowserRouter>
+}

@@ -10,19 +10,19 @@ type propsType = {
     updateStatus: (status: string) => void
 }
 
-const ProfileInfo = (props: propsType) => {
+const ProfileInfo = ({profile, status, updateStatus}: propsType) => {
 
-    if (!props.profile) {
+    if (!profile) {
         return <Preloader/>
     }
 
     return <div>
 
         <div className={s.descriptionBlock}>
-            <img src={props.profile.photos.large}/>
-            <div>{props.profile.fullName}</div>
-            <div>{props.profile.aboutMe}</div>
-            <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
+            <img src={profile.photos.large}/>
+            <div>{profile.fullName}</div>
+            <div>{profile.aboutMe}</div>
+            <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
         </div>
     </div>
 }
