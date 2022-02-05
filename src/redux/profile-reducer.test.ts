@@ -1,6 +1,4 @@
 import {addPostAC, deletePostAC, profileReducer} from "./profile-reducer";
-import {postsType} from "./store";
-import {profileType} from "../components/Profile/Profile";
 
 let state = {
     posts: [
@@ -11,11 +9,11 @@ let state = {
     status: ""
 }
 
-type initialStateType = {
-    posts: Array<postsType>
-    profile: profileType | null
-    status: string
-}
+// type initialStateType = {
+//     posts: Array<postsType>
+//     profile: profileType | null
+//     status: string
+// }
 
 
 

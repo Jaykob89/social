@@ -17,8 +17,9 @@ type propsType = {
 export let Users = ({currentPage, onPageChanged, totalUsersCount, pageSize, users, ...props}: propsType) => {
 
     return <div>
-        <Paginator totalUsersCount={totalUsersCount} pageSize={pageSize} currentPage={currentPage}
-                   onPageChanged={onPageChanged}/>
+        <Paginator totalItemsCount={totalUsersCount} pageSize={pageSize} currentPage={currentPage}
+                   onPageChanged={onPageChanged}
+        />
         <div>
             {
                 users.map(u => <User user={u} key={u.id}
