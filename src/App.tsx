@@ -2,9 +2,9 @@ import React from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
 import {BrowserRouter, Route, withRouter} from "react-router-dom";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
+
 import UsersContainer from "./components/Users/UsersContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
+
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./Login/Login";
 import {connect, Provider} from "react-redux";
@@ -13,6 +13,14 @@ import {RootStateType} from "./redux/store";
 import {initializedApp} from "./redux/app-reducer";
 import {AppStateType, store} from "./redux/redux-store";
 import {Preloader} from "./components/common/preloader/Preloader";
+import {withSuspense} from "./HOC/withSuspense";
+
+// import DialogsContainer from "./components/Dialogs/DialogsContainer";
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+
+// import ProfileContainer from "./components/Profile/ProfileContainer";
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
+
 
 type mapDispatchType = {
     initializedApp: () => void
@@ -40,19 +48,12 @@ class App extends React.Component<propsType, RootStateType> {
                     <HeaderContainer/>
                     <Navbar/>
                     <div className='app-wrapper-content'>
-                        <Route path='/dialogs' render={() =>
-                            <DialogsContainer/>}
-                        />
-                        <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
-
+                        <Route path='/dialogs' render={withSuspense(DialogsContainer)}/>
+                        <Route path='/profile/:userId?' render={withSuspense(ProfileContainer)}/>
                         <Route path='/users' render={() => <UsersContainer/>}/>
-
                         <Route path='/login' render={() => <Login/>}/>
-
                     </div>
-
                 </div>
-
             </BrowserRouter>);
     }
 

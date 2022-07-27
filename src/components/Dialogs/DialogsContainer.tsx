@@ -21,6 +21,8 @@ let mapDispatchToProps = (dispatch: Dispatch) => {
     }
 }
 
+
+
 export default compose<React.ComponentType>(
     connect(mapStateToProps, mapDispatchToProps),
     withAuthRedirect
