@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
-import {BrowserRouter, HashRouter, Route, withRouter} from "react-router-dom";
+import { HashRouter, Route, withRouter} from "react-router-dom";
 
 import UsersContainer from "./components/Users/UsersContainer";
 
@@ -43,7 +43,7 @@ class App extends React.Component<propsType, RootStateType> {
         }
 
         return (
-            <BrowserRouter>
+            <HashRouter>
                 <div className='app-wrapper'>
                     <HeaderContainer/>
                     <Navbar/>
@@ -54,7 +54,7 @@ class App extends React.Component<propsType, RootStateType> {
                         <Route path='/login' render={() => <Login/>}/>
                     </div>
                 </div>
-            </BrowserRouter>);
+            </HashRouter>);
     }
 
 }

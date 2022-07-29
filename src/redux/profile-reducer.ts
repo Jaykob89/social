@@ -1,5 +1,5 @@
 import {postsType, allACTypes} from "./store";
-import {profileType} from "../components/Profile/Profile";
+import  {photosType, profileType} from "../components/Profile/Profile";
 import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../api/api";
 import {AxiosResponse} from "axios";
@@ -54,6 +54,12 @@ export const profileReducer = (state: initialStateType = initialState, action: a
                 ...state, posts: state.posts.filter(p => p.id !== action.postId)
             }
         }
+        case
+        "SAVE-PHOTO-SUCCESS": {
+            return {
+                ...state, profile: {...state.profile, photos: action.photos}
+            }
+        }
         default:
             return state
     }
@@ -78,11 +84,13 @@ export let setStatus = (status: string) => {
     } as const
 }
 export let deletePostAC = (postId: number) => {
-    return {
-        type: "DELETE-POST",
-        postId
-    } as const
+    return {type: "DELETE-POST", postId} as const
 }
+export let savePhotoSuccess = (photos: photosType) => {
+    return {type: "SAVE-PHOTO-SUCCESS", photos} as const
+}
+
+
 export let updateNewPostTextAC = (newText: string) => {
     return {
         type: 'UPDATE-NEW-POST-TEXT',
@@ -105,6 +113,13 @@ export const updateStatusTC = (status: string) => async (dispatch: Dispatch) => 
     let response: AxiosResponse<any> = await profileAPI.updateStatus(status)
     if (response.data.resultCode === 0) {
         dispatch(setStatus(status))
+    }
+}
+export const savePhoto = (file: string) => async (dispatch: Dispatch) => {
+    let response: AxiosResponse<any> = await profileAPI.savePhoto(file)
+
+    if (response.data.resultCode === 0) {
+        dispatch(savePhotoSuccess(response.data.data.photos))
     }
 }
 

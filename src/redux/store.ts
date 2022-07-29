@@ -1,4 +1,11 @@
-import {addPostAC, deletePostAC, setStatus, setUserProfile, updateNewPostTextAC} from "./profile-reducer";
+import {
+    addPostAC,
+    deletePostAC,
+    savePhotoSuccess,
+    setStatus,
+    setUserProfile,
+    updateNewPostTextAC
+} from "./profile-reducer";
 import {addMessageAC} from "./dialog-reducer";
 import {
     followSuccess,
@@ -67,5 +74,6 @@ export type allACTypes =
     | ReturnType<typeof setStatus>
     | ReturnType<typeof initializedSuccess>
     | ReturnType<typeof deletePostAC>
+    | ReturnType<typeof savePhotoSuccess>
 
 
