@@ -8,28 +8,32 @@ export type photosType = {
 }
 export type profileType = {
     photos: photosType,
-    aboutMe?: string
-    lookingForAJob?: boolean
+    aboutMe: string
+    lookingForAJob: boolean
     lookingForAJobDescription?: string
-    fullName?: string
-    contacts?: {
-        [key: string]: string | null
+    fullName: string
+    contacts: {
+        [key: string]: string
         //.....
     }
 }
 
 type profileInfoType = {
-    profile: profileType | null
+    profile: profileType
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean
     savePhoto: (file: File) => void
+    saveProfile:(profile:profileType)=>void
 }
 
 const Profile = (props: profileInfoType) => {
 
     return <div>
-        <ProfileInfo savePhoto={props.savePhoto} isOwner={props.isOwner} profile={props.profile} status={props.status}
+        <ProfileInfo savePhoto={props.savePhoto}
+                     isOwner={props.isOwner} profile={props.profile}
+                     status={props.status}
+                     saveProfile={props.saveProfile}
                      updateStatus={props.updateStatus}/>
         <MyPostsContainer/>
     </div>

@@ -1,8 +1,12 @@
 import {postsType, allACTypes} from "./store";
-import  {photosType, profileType} from "../components/Profile/Profile";
+import {photosType, profileType} from "../components/Profile/Profile";
 import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../api/api";
 import {AxiosResponse} from "axios";
+import {stopSubmit} from "redux-form";
+import message from "../components/Dialogs/Message/Message";
+
+;
 
 const SETUSEPROFILE = "SET_USER_PROFILE";
 const SETSTATUS = "SET_STATUS";
@@ -12,7 +16,7 @@ let initialState = {
         {id: 1, message: 'Hi, how are You', likesCount: 125},
         {id: 2, message: "It's my first post", likesCount: 23},
     ],
-    profile: null,
+    profile: null as profileType | null,
     status: ""
 }
 
@@ -57,7 +61,7 @@ export const profileReducer = (state: initialStateType = initialState, action: a
         case
         "SAVE-PHOTO-SUCCESS": {
             return {
-                ...state, profile: {...state.profile, photos: action.photos}
+                ...state, profile: {...state.profile, photos: action.photos} as profileType
             }
         }
         default:
@@ -98,7 +102,7 @@ export let updateNewPostTextAC = (newText: string) => {
     } as const
 }
 
-export const ProfileTC = (userId: string) => async (dispatch: Dispatch) => {
+export const getUserProfile = (userId: string) => async (dispatch: Dispatch) => {
     let response = await usersAPI.getProfile(userId)
     dispatch(setUserProfile(response.data))
 }
@@ -120,6 +124,16 @@ export const savePhoto = (file: string) => async (dispatch: Dispatch) => {
 
     if (response.data.resultCode === 0) {
         dispatch(savePhotoSuccess(response.data.data.photos))
+    }
+}
+export const saveProfile = (profile: profileType) => async (dispatch: Dispatch, getState: any) => {
+    const userId = getState().auth.userId
+    let response: AxiosResponse<any> = await profileAPI.saveProfile(profile)
+
+    if (response.data.resultCode === 0) {
+        dispatch(getUserProfile(userId))
+    } else {
+        dispatch(stopSubmit('edit-profile', {_error: message}))
     }
 }
 
