@@ -21,16 +21,16 @@ export const usersAPI = {
     unFollow(userId: number) {
         return instance.delete(`follow/${userId}`)
     },
-    getProfile(userId: string) {
-        console.log('Obsolute method. Please profileApi object')
+    getProfile(userId: number | null) {
+        console.log('Absolute method. Please profileApi object')
         return profileAPI.getProfile(userId)
     }
 }
 export const profileAPI = {
-    getProfile(userId: string) {
+    getProfile(userId: number | null) {
         return instance.get(`profile/` + userId)
     },
-    getStatus(userId: string) {
+    getStatus(userId: number) {
         return instance.get('profile/status/' + userId);
     },
     updateStatus(status: string) {

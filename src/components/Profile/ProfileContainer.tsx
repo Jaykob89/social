@@ -25,7 +25,7 @@ type mapDispatchPropsType = {
     getStatusTC: (userId: string) => void
     updateStatusTC: (status: string) => void
     savePhoto: (file: File) => void
-    saveProfile: (profile: profileType) => void
+    saveProfile: (profile: profileType) => Promise<any>
 
 }
 

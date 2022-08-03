@@ -6,15 +6,18 @@ import styles from "../../common/FormsControl/FormsControl.module.css";
 import {profileType} from "../Profile";
 
 
-// type FormDataType = {
-//     profile:any
-//     fullName:string
-//     lookingForAJob:string
-//     lookingForAJobDescription:string
-//
-// }
 
-const ProfileDataForm = ({handleSubmit, profile, error}:any) => {
+type FormDataType = {
+    profile:profileType
+    fullName:string
+    lookingForAJob:string
+    lookingForAJobDescription:string
+
+}
+
+// type ProfileFileKeys = GetStringKeys<profileType>
+
+const ProfileDataForm:React.FC<InjectedFormProps<any>> = ({handleSubmit, profile, error}:any) => {
     return <form onSubmit={handleSubmit}>
         <div>
             <button>save</button>
@@ -24,17 +27,15 @@ const ProfileDataForm = ({handleSubmit, profile, error}:any) => {
                 {error}
             </div>
         }
-        <div>
-            <button>Login</button>
-        </div>
+
         <div>Full name {createField('Full Name', 'fullName', [], Input, '')}</div>
-        <div>Looking for a job :{createField('', 'lookingForAJob', [], Input, {type: 'checkbox'}, '')}
+        <div>Looking for a job :{createField('', 'lookingForAJob', [], Input, {type: 'Checkbox'}, '')}
         </div>
         <div>My professional skills :
             {createField('My professional skills', 'lookingForAJobDescription', [], TextArea, '')}
         </div>
         <div>About me:
-            {createField('About me', 'About me', [], TextArea, '')}
+            {createField('About me', 'AboutMe', [], TextArea, '')}
         </div>
         <div>
             Contacts : {Object.keys(profile.contacts).map(key => {

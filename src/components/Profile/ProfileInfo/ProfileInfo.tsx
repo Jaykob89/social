@@ -13,7 +13,7 @@ type propsType = {
     updateStatus: (status: string) => void
     isOwner: boolean
     savePhoto: (file: File) => void
-    saveProfile: (profile: profileType) => void
+    saveProfile: (profile: profileType) => Promise<any>
 }
 
 
@@ -32,10 +32,13 @@ const ProfileInfo: React.FC<propsType> = ({profile, status, updateStatus, isOwne
         }
     }
 
-    const onSubmit = (formData: any) => {
-        saveProfile(formData)
-        setEditMode(false)
+    const onSubmit = (formData: profileType) => {
+        saveProfile(formData).then(() => {
+            setEditMode(false)
+        })
     }
+
+
 
     return <div>
 
@@ -43,20 +46,24 @@ const ProfileInfo: React.FC<propsType> = ({profile, status, updateStatus, isOwne
             <img alt={'avatar_photo'} src={profile.photos.large || userPhoto}/>
             {isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
             {editMode
+                // @ts-ignore
                 ? <ProfileDataForm initialValues={profile} profile={profile} onSubmit={onSubmit}/>
-                : <ProfileData goToEditMode={() => {
-                    setEditMode(true)
+                : <ProfileData goToEditMode={() => {setEditMode(true)
                 }} profile={profile} isOwner={isOwner}/>}
-
-            <ProfileData profile={profile} isOwner={isOwner}/>
             <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
         </div>
     </div>
 
 }
 
+type ProfileDataPropsType = {
+    profile: profileType
+    isOwner: boolean
+    goToEditMode: () => void
+}
 
-const ProfileData = ({profile, isOwner, goToEditMode}: propsType) => {
+
+const ProfileData: React.FC<ProfileDataPropsType> = ({profile, isOwner, goToEditMode}) => {
 
     return <div>
         {isOwner && <div>

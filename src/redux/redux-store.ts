@@ -1,4 +1,4 @@
-import {applyMiddleware, combineReducers, createStore, Store} from "redux";
+import {Action, applyMiddleware, combineReducers, createStore, Store} from "redux";
 import {profileReducer} from "./profile-reducer";
 import {dialogReducer} from "./dialog-reducer";
 import {sideBarReducer} from "./sidebar-reducer";
@@ -24,3 +24,5 @@ let rootReducer = combineReducers(
 export type AppStateType = ReturnType<typeof rootReducer>
 
 export let store: Store = createStore(rootReducer, applyMiddleware(thunk));
+
+// export type BaseThunkType = <A extends Action, R = Promise<void>> = ThunkAction < R, AppStateType, unknown, A >

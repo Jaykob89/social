@@ -2,6 +2,7 @@ import React from 'react';
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
+
 export type photosType = {
     small: string
     large: string
@@ -24,7 +25,7 @@ type profileInfoType = {
     updateStatus: (status: string) => void
     isOwner: boolean
     savePhoto: (file: File) => void
-    saveProfile:(profile:profileType)=>void
+    saveProfile:(profile:profileType)=>Promise<any>
 }
 
 const Profile = (props: profileInfoType) => {

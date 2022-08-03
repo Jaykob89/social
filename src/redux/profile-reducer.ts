@@ -1,10 +1,11 @@
-import {postsType, allACTypes} from "./store";
+import {postsType, allACTypes, StoreType} from "./store";
 import {photosType, profileType} from "../components/Profile/Profile";
 import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../api/api";
 import {AxiosResponse} from "axios";
 import {stopSubmit} from "redux-form";
-import message from "../components/Dialogs/Message/Message";
+import {AppStateType} from "./redux-store";
+import {ThunkDispatch} from "redux-thunk";
 
 ;
 
@@ -25,6 +26,9 @@ type initialStateType = {
     profile: profileType | null
     status: string
 }
+
+
+// type ThunkType = BaseThunkType<allACTypes>
 
 export const profileReducer = (state: initialStateType = initialState, action: allACTypes): initialStateType => {
     switch (action.type) {
@@ -102,12 +106,12 @@ export let updateNewPostTextAC = (newText: string) => {
     } as const
 }
 
-export const getUserProfile = (userId: string) => async (dispatch: Dispatch) => {
+export const getUserProfile = (userId: number | null) => async (dispatch: Dispatch) => {
     let response = await usersAPI.getProfile(userId)
     dispatch(setUserProfile(response.data))
 }
 
-export const getStatusTC = (userId: string) => async (dispatch: Dispatch) => {
+export const getStatusTC = (userId: number) => async (dispatch: Dispatch) => {
     let response = await profileAPI.getStatus(userId)
     dispatch(setStatus(response.data))
 
@@ -126,14 +130,16 @@ export const savePhoto = (file: string) => async (dispatch: Dispatch) => {
         dispatch(savePhotoSuccess(response.data.data.photos))
     }
 }
-export const saveProfile = (profile: profileType) => async (dispatch: Dispatch, getState: any) => {
-    const userId = getState().auth.userId
+export const saveProfile = (profile: profileType) => async (dispatch: ThunkDispatch<StoreType,unknown,allACTypes>,getState:AppStateType) => {
+    const userId = getState.auth.userId
     let response: AxiosResponse<any> = await profileAPI.saveProfile(profile)
-
     if (response.data.resultCode === 0) {
-        dispatch(getUserProfile(userId))
+        if (userId != null){
+            await dispatch(getUserProfile(userId))
+        }
     } else {
-        dispatch(stopSubmit('edit-profile', {_error: message}))
+        dispatch(stopSubmit('edit-profile', {_error: response.data.messages[0]}))
+        return Promise.reject(response.data.messages[0])
     }
 }
 
