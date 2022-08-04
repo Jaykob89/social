@@ -16,7 +16,7 @@ import {
     unFollowSuccess
 } from "./users-reducer";
 import {profileType} from "../components/Profile/Profile";
-import {setAuthUserDate} from "./auth-reducer";
+import {getCaptchaUrlSuccess, setAuthUserDate} from "./auth-reducer";
 import {initializedSuccess} from "./app-reducer";
 
 export type messageType = {
@@ -75,5 +75,6 @@ export type allACTypes =
     | ReturnType<typeof initializedSuccess>
     | ReturnType<typeof deletePostAC>
     | ReturnType<typeof savePhotoSuccess>
+    | ReturnType<typeof getCaptchaUrlSuccess>
 
 
