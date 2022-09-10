@@ -7,8 +7,6 @@ import {stopSubmit} from "redux-form";
 import {AppStateType} from "./redux-store";
 import {ThunkDispatch} from "redux-thunk";
 
-;
-
 const SETUSEPROFILE = "SET_USER_PROFILE";
 const SETSTATUS = "SET_STATUS";
 

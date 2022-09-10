@@ -4,7 +4,7 @@ import {allACTypes, StoreType} from "./store";
 
 const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS';
 
-type initialStateType = {
+export type initialStateType = {
     initialized: boolean
 }
 
@@ -24,6 +24,7 @@ export const appReducer = (state: initialStateType = initialState, action: Actio
     }
 }
 export type  initializedSuccessType = ReturnType<typeof initializedSuccess>
+
 type ActionsType = initializedSuccessType
 
 export const initializedSuccess = () => ({

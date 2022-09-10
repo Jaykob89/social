@@ -17,13 +17,18 @@ type initialStateType = {
     captchaUrl: string | null
 }
 
+export type  SetAuthUserDateType = ReturnType<typeof setAuthUserDate>
+export type  getCaptchaUrlSuccessType = ReturnType<typeof getCaptchaUrlSuccess>
+type ActionsType = SetAuthUserDateType | getCaptchaUrlSuccessType
+
+
 let initialState = {
-    userId: null,
-    email: null,
-    login: null,
+    userId: null as number | null,
+    email: null as string | null,
+    login: null as string | null,
     isFetching: false,
     isAuth: false,
-    captchaUrl: null
+    captchaUrl: null as string | null
 }
 
 export const authReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
@@ -38,11 +43,8 @@ export const authReducer = (state: initialStateType = initialState, action: Acti
             return state;
     }
 }
-export type  SetAuthUserDateType = ReturnType<typeof setAuthUserDate>
-export type  getCaptchaUrlSuccessType = ReturnType<typeof getCaptchaUrlSuccess>
 
 
-type ActionsType = SetAuthUserDateType | getCaptchaUrlSuccessType
 
 export const setAuthUserDate = (userId: number | null, email: string | null, login: string | null, isAuth: boolean) => ({
     type: SET_USER_DATA,

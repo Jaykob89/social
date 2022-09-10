@@ -1,6 +1,7 @@
 import {allACTypes} from "./store";
 import {Dispatch} from "redux";
 import {usersAPI} from "../api/api";
+import {usersType} from "../types/types";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -10,18 +11,6 @@ const SETTOTALUSERSCOUNT = 'SET_TOTAL_USERS_COUNT';
 const TOGGLEISFETCHING = 'TOGGLE_IS_FETCHING';
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS';
 
-export type usersType = {
-    id: number
-    followed: boolean
-    name: string
-    photoUrl: string
-    status: string
-    photos: {
-        "small": string | null,
-        "large": string | null
-    },
-    location: { city: string, country: string }
-}
 
 export type setUsersType = {
     items: usersType[]
@@ -29,7 +18,7 @@ export type setUsersType = {
 }
 
 let initialState: InitialStateType = {
-    users: [],
+    users: [] as usersType[],
     pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
@@ -131,13 +120,13 @@ export const requestUsers = (page: number, pageSize: number) => async (dispatch:
     dispatch(setCurrentPages(page))
 }
 
-const followUnfollowFlow = async (disatch: Dispatch, userId: number, apiMethod: any, actionCreator: any) => {
-    disatch(toggleIsFollowing(true, userId))
+const followUnfollowFlow = async (dispatch: Dispatch, userId: number, apiMethod: any, actionCreator: any) => {
+    dispatch(toggleIsFollowing(true, userId))
     let response = await apiMethod(userId)
     if (response.data.resultCode === 0) {
-        disatch(actionCreator(userId))
+        dispatch(actionCreator(userId))
     }
-    disatch(toggleIsFollowing(false, userId))
+    dispatch(toggleIsFollowing(false, userId))
 }
 
 export const follow = (uId: number) => {

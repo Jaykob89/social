@@ -1,12 +1,8 @@
 import React from 'react';
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import {photosType} from "../../types/types";
 
-
-export type photosType = {
-    small: string
-    large: string
-}
 export type profileType = {
     photos: photosType,
     aboutMe: string
