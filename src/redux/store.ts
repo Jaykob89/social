@@ -44,6 +44,7 @@ export type  massagesPageType = {
     newMessageText: string
 }
 export type SidebarType = {}
+
 export type RootStateType = {
     massagesPage: massagesPageType
     profilePage: profilePageType

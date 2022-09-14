@@ -1,7 +1,7 @@
 import React from "react";
-import {usersType} from "../../redux/users-reducer";
 import Paginator from "../common/Paginator/Paginator";
 import {User} from "./User";
+import {usersType} from "../../types/types";
 
 type propsType = {
     totalUsersCount: number
@@ -14,7 +14,11 @@ type propsType = {
     followingInProgress: Array<number>
 }
 
-export let Users = ({currentPage, onPageChanged, totalUsersCount, pageSize, users, ...props}: propsType) => {
+export let Users: React.FC<propsType> = ({currentPage,
+                                             onPageChanged,
+                                             totalUsersCount,
+                                             pageSize,
+                                             users, ...props}) => {
 
     return <div>
         <Paginator totalItemsCount={totalUsersCount} pageSize={pageSize} currentPage={currentPage}

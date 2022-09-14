@@ -1,11 +1,12 @@
 import {postsType, allACTypes, StoreType} from "./store";
-import {photosType, profileType} from "../components/Profile/Profile";
+import {profileType} from "../components/Profile/Profile";
 import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../api/api";
 import {AxiosResponse} from "axios";
 import {stopSubmit} from "redux-form";
 import {AppStateType} from "./redux-store";
 import {ThunkDispatch} from "redux-thunk";
+import {photosType} from "../types/types";
 
 const SETUSEPROFILE = "SET_USER_PROFILE";
 const SETSTATUS = "SET_STATUS";

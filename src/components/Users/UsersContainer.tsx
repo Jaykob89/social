@@ -5,7 +5,7 @@ import {
     follow, requestUsers,
     setCurrentPages,
     toggleIsFollowing,
-    unFollow, usersType,
+    unFollow,
 } from "../../redux/users-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {RootStateType} from "../../redux/store";
@@ -18,6 +18,7 @@ import {
     getPageSize,
     getTotalUsersCount, getUsers
 } from "../../redux/user-selectors";
+import {usersType} from "../../types/types";
 
 class UsersContainerComponent extends React.Component<UsersPropsType, RootStateType> {
     componentDidMount() {
@@ -56,6 +57,16 @@ type MapStatePropsType = {
     followingInProgress: Array<number>
 }
 
+type mapDispatchToPropsType = {
+    follow: (userId: number) => void
+    unFollow: (userId: number) => void
+    setCurrentPages: (pageNumber: number) => void
+    toggleIsFollowing: (isFetching: boolean, userId: number) => void
+    getUsers: (currentPage: number, pageSize: number) => void
+}
+
+export type UsersPropsType = MapStatePropsType & mapDispatchToPropsType
+
 let mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         users: getUsers(state),
@@ -67,25 +78,13 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
     }
 }
 
-type mapDispatchToPropsType = {
-    follow: (userId: number) => void
-    unFollow: (userId: number) => void
-    setCurrentPages: (pageNumber: number) => void
-    toggleIsFollowing: (isFetching: boolean, userId: number) => void
-    getUsers: (currentPage: number, pageSize: number) => void
-}
-
-export type UsersPropsType = MapStatePropsType & mapDispatchToPropsType
-
 connect(mapStateToProps, {
     follow, unFollow, setCurrentPages,
     toggleIsFollowing, getUsers: requestUsers
 })
 
 
-export default compose<React.ComponentType>(
-    connect(mapStateToProps, {
-        follow, unFollow, setCurrentPages,
-        toggleIsFollowing, getUsers: requestUsers
+export default compose<React.ComponentType>(connect(mapStateToProps, {follow, unFollow, setCurrentPages,
+    toggleIsFollowing, getUsers: requestUsers
     })
 )(UsersContainerComponent)

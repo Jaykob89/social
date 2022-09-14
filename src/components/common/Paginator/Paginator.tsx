@@ -9,7 +9,7 @@ type propsType = {
     onPageChanged: (p: number) => void
 }
 
-export let Paginator = ({totalItemsCount, pageSize, onPageChanged, currentPage}: propsType,) => {
+export let Paginator: React.FC<propsType> = ({totalItemsCount, pageSize, onPageChanged, currentPage}) => {
 
     let portionSize = 10
 
