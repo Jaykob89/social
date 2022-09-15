@@ -105,7 +105,7 @@ export let updateNewPostTextAC = (newText: string) => {
     } as const
 }
 
-export const getUserProfile = (userId: number | null) => async (dispatch: Dispatch) => {
+export const getUserProfile = (userId: number) => async (dispatch: Dispatch) => {
     let response = await usersAPI.getProfile(userId)
     dispatch(setUserProfile(response.data))
 }

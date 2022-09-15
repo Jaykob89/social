@@ -1,5 +1,5 @@
 import {allACTypes} from "./store";
-import {Action, Dispatch} from "redux";
+import {Dispatch} from "redux";
 import {usersAPI} from "../api/api";
 import {usersType} from "../types/types";
 import {AppStateType} from "./redux-store";

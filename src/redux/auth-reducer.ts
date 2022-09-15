@@ -77,15 +77,16 @@ export const getAuthUserData = () => {
 
 
 export const login = (email: string, password: string, rememberMe: boolean, captcha: string) => async (dispatch: ThunkDispatch<StoreType, unknown, allACTypes | FormAction>) => {
-    let data = await authApi.login(email, password, rememberMe, captcha)
-    if (data.resultCode === ResultCodeEnum.Success) {
+    // let data = await authApi.login(email, password, rememberMe, captcha)
+    let response: AxiosResponse<any> = await authApi.login(email, password, rememberMe, captcha)
+    if (response.data.resultCode === ResultCodeEnum.Success) {
         await dispatch(getAuthUserData())
     } else {
-        if (data.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {
+        if (response.data.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {
             await dispatch(getCaptchaUrl())
         }
 
-        let message = data.messages.length > 0 ? data.messages[0] : 'Some Error'
+        let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some Error'
         dispatch(stopSubmit('login', {_error: message}))
     }
 }

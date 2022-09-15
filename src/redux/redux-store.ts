@@ -1,4 +1,4 @@
-import {Action, applyMiddleware, combineReducers, createStore, Store} from "redux";
+import {applyMiddleware, combineReducers, createStore, Store} from "redux";
 import {profileReducer} from "./profile-reducer";
 import {dialogReducer} from "./dialog-reducer";
 import {sideBarReducer} from "./sidebar-reducer";
