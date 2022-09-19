@@ -1,9 +1,12 @@
 import {Dispatch} from "redux";
-import {authApi, ResultCodeEnum, ResultCodeForCaptcha, securityApi} from "../api/api";
+import {ResultCodeEnum, ResultCodeForCaptcha} from "../api/api";
 import {ThunkDispatch} from "redux-thunk";
 import {allACTypes, StoreType} from "./store";
 import {FormAction, stopSubmit} from "redux-form";
 import {AxiosResponse} from "axios";
+import {authApi} from "../api/auth-Api";
+import {securityApi} from "../api/security-Api";
+import {ThunkType} from "./users-reducer";
 
 const SET_USER_DATA = 'samurai-network/auth/SET_USER_DATA';
 const GET_CAPTCHA_URL_SUCCESS = 'samurai-network/auth/GET_CAPTCHA_URL_SUCCESS';
@@ -65,38 +68,38 @@ export type ResponseType = {
     }
 }
 
-export const getAuthUserData = () => {
-    return async (dispatch: Dispatch) => {
+export const getAuthUserData = (): ThunkType => {
+    return async (dispatch) => {
         let meData = await authApi.me()
         if (meData.resultCode === ResultCodeEnum.Success) {
-            let {id, login, email} = meData.data
+            let {id, login, email} = meData.data.data
             dispatch(setAuthUserDate(id, email, login, true))
         }
     }
 }
 
 
-export const login = (email: string, password: string, rememberMe: boolean, captcha: string) => async (dispatch: ThunkDispatch<StoreType, unknown, allACTypes | FormAction>) => {
+export const login = (email: string, password: string, rememberMe: boolean, captcha: string): ThunkType => async (dispatch) => {
     // let data = await authApi.login(email, password, rememberMe, captcha)
-    let response: AxiosResponse<any> = await authApi.login(email, password, rememberMe, captcha)
-    if (response.data.resultCode === ResultCodeEnum.Success) {
+    let data = await authApi.login(email, password, rememberMe, captcha)
+    if (data.resultCode === ResultCodeEnum.Success) {
         await dispatch(getAuthUserData())
     } else {
-        if (response.data.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {
+        if (data.data.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {
             await dispatch(getCaptchaUrl())
         }
 
-        let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some Error'
+        let message = data.data.messages.length > 0 ? data.data.messages[0] : 'Some Error'
         dispatch(stopSubmit('login', {_error: message}))
     }
 }
-export const getCaptchaUrl = () => async (dispatch: ThunkDispatch<StoreType, unknown, allACTypes>) => {
-    let response: AxiosResponse<any> = await securityApi.getCaptchaUrl()
-    const captchaUrl = response.data.url
+export const getCaptchaUrl = (): ThunkType => async (dispatch) => {
+    let data = await securityApi.getCaptchaUrl()
+    const captchaUrl = data.url
     dispatch(getCaptchaUrlSuccess(captchaUrl))
 }
-export const logout = () => {
-    return async (dispatch: ThunkDispatch<StoreType, unknown, allACTypes>) => {
+export const logout = (): ThunkType => {
+    return async (dispatch) => {
         let response: AxiosResponse<ResponseType> = await authApi.logout()
         if (response.data.resultCode === 0) {
             dispatch(setAuthUserDate(null, null, null, false))

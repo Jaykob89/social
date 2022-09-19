@@ -1,12 +1,12 @@
 import {postsType, allACTypes, StoreType} from "./store";
 import {profileType} from "../components/Profile/Profile";
-import {Dispatch} from "redux";
-import {profileAPI, usersAPI} from "../api/api";
-import {AxiosResponse} from "axios";
 import {stopSubmit} from "redux-form";
 import {AppStateType} from "./redux-store";
 import {ThunkDispatch} from "redux-thunk";
 import {photosType} from "../types/types";
+import {profileAPI} from "../api/profile-API";
+import {ThunkType} from "./users-reducer";
+
 
 const SETUSEPROFILE = "SET_USER_PROFILE";
 const SETSTATUS = "SET_STATUS";
@@ -105,40 +105,41 @@ export let updateNewPostTextAC = (newText: string) => {
     } as const
 }
 
-export const getUserProfile = (userId: number) => async (dispatch: Dispatch) => {
-    let response = await usersAPI.getProfile(userId)
-    dispatch(setUserProfile(response.data))
+export const getUserProfile = (userId: number):ThunkType => async (dispatch) => {
+    let data = await profileAPI.getProfile(userId)
+    dispatch(setUserProfile(data))
 }
 
-export const getStatusTC = (userId: number) => async (dispatch: Dispatch) => {
-    let response = await profileAPI.getStatus(userId)
-    dispatch(setStatus(response.data))
+export const getStatusTC = (userId: number):ThunkType => async (dispatch) => {
+    let data = await profileAPI.getStatus(userId)
+    dispatch(setStatus(data))
 
 }
 
-export const updateStatusTC = (status: string) => async (dispatch: Dispatch) => {
-    let response: AxiosResponse<any> = await profileAPI.updateStatus(status)
-    if (response.data.resultCode === 0) {
+export const updateStatusTC = (status: string):ThunkType => async (dispatch) => {
+    let data = await profileAPI.updateStatus(status)
+    if (data.resultCode === 0) {
         dispatch(setStatus(status))
     }
 }
-export const savePhoto = (file: string) => async (dispatch: Dispatch) => {
-    let response: AxiosResponse<any> = await profileAPI.savePhoto(file)
+export const savePhoto = (file: string):ThunkType => async (dispatch) => {
+    let data = await profileAPI.savePhoto(file)
 
-    if (response.data.resultCode === 0) {
-        dispatch(savePhotoSuccess(response.data.data.photos))
+    if (data.resultCode === 0) {
+        dispatch(savePhotoSuccess(data.data.photos))
     }
 }
-export const saveProfile = (profile: profileType) => async (dispatch: ThunkDispatch<StoreType,unknown,allACTypes>,getState:AppStateType) => {
+// export const saveProfile = (profile: profileType)=> async (dispatch: ThunkDispatch<StoreType,unknown,allACTypes>,getState:AppStateType) => {
+export const saveProfile = (profile: profileType):ThunkType => async (dispatch,getState) => {
     const userId = getState.auth.userId
-    let response: AxiosResponse<any> = await profileAPI.saveProfile(profile)
-    if (response.data.resultCode === 0) {
+    let data = await profileAPI.saveProfile(profile)
+    if (data.resultCode === 0) {
         if (userId != null){
             await dispatch(getUserProfile(userId))
         }
     } else {
-        dispatch(stopSubmit('edit-profile', {_error: response.data.messages[0]}))
-        return Promise.reject(response.data.messages[0])
+        dispatch(stopSubmit('edit-profile', {_error: data.messages[0]}))
+        return Promise.reject(data.messages[0])
     }
 }
 

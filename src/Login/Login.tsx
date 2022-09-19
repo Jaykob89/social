@@ -8,12 +8,16 @@ import {Redirect} from "react-router-dom";
 import {AppStateType} from "../redux/redux-store";
 import styles from '../components/common/FormsControl/FormsControl.module.css'
 
-type FormDataType = {
+
+export type FormDataType = {
     captchaUrl: string
     email: string
     password: string
     rememberMe: boolean
 }
+
+type LoginFormValuesTypeKeys = Extract<keyof FormDataType, string>
+
 
 type LoginFormOwnProps = {
     captchaUrl: string | null
@@ -27,13 +31,16 @@ type MapDispatchToPropsType = {
     login: (email: string, password: string, rememberMe: boolean, captchaUrl: string) => void
 }
 
-export const LoginForm: React.FC<InjectedFormProps<FormDataType,LoginFormOwnProps> & LoginFormOwnProps> = ({handleSubmit, error, captchaUrl
-}) => {
+export const LoginForm: React.FC<InjectedFormProps<FormDataType, LoginFormOwnProps> & LoginFormOwnProps> = ({
+                                                                                                                handleSubmit,
+                                                                                                                error,
+                                                                                                                captchaUrl
+                                                                                                            }) => {
     return (
         <form onSubmit={handleSubmit}>
-            {createField('Email', 'email', [required], Input, {})}
-            {createField('Password', 'password', [required], Input, 'password')}
-            {createField(undefined, 'rememberMe', [], Input, 'checkbox', 'remember me')}
+            {createField<LoginFormValuesTypeKeys>('Email', 'email', [required], Input, {})}
+            {createField<LoginFormValuesTypeKeys>('Password', 'password', [required], Input, 'password')}
+            {createField<LoginFormValuesTypeKeys>(undefined, 'rememberMe', [], Input, 'checkbox', 'remember me')}
 
             {captchaUrl && <img src={captchaUrl}/>}
             {captchaUrl && createField('Symbols from image', "captcha", [required], Input, {})}
@@ -51,7 +58,7 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType,LoginFormOwnProp
     )
 }
 
-const LoginReduxForm = reduxForm<FormDataType,LoginFormOwnProps>({form: 'login'})(LoginForm)
+const LoginReduxForm = reduxForm<FormDataType, LoginFormOwnProps>({form: 'login'})(LoginForm)
 
 
 const Login: React.FC<MapStatePropsType & MapDispatchToPropsType> = (props) => {

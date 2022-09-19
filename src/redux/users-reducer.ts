@@ -1,9 +1,9 @@
 import {allACTypes} from "./store";
 import {Dispatch} from "redux";
-import {usersAPI} from "../api/api";
 import {usersType} from "../types/types";
-import {AppStateType} from "./redux-store";
+import {AppStateType, BaseThunkType} from "./redux-store";
 import {ThunkAction} from "redux-thunk";
+import {usersAPI} from "../api/users-api";
 
 
 const FOLLOW = 'FOLLOW';
@@ -39,7 +39,8 @@ export type InitialStateType = {
 
 }
 
-type ThunkType = ThunkAction<void, AppStateType, unknown,allACTypes>
+export type ThunkType = BaseThunkType<allACTypes>
+
 
 export const usersReducer = (state: InitialStateType = initialState, action: allACTypes): InitialStateType => {
     switch (action.type) {
@@ -126,7 +127,7 @@ export const requestUsers = (page: number, pageSize: number): ThunkType =>
         dispatch(setCurrentPages(page))
     }
 
-const followUnfollowFlow = async (dispatch: Dispatch, userId: number, apiMethod: any, actionCreator: (userId:number)=>allACTypes) => {
+const followUnfollowFlow = async (dispatch: Dispatch, userId: number, apiMethod: any, actionCreator: (userId: number) => allACTypes) => {
     dispatch(toggleIsFollowing(true, userId))
     let response = await apiMethod(userId)
     if (response.data.resultCode === 0) {

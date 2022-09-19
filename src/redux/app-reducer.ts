@@ -42,7 +42,7 @@ export type ResponseType = {
 }
 
 export const initializedApp = () => {
-    return (dispatch: ThunkDispatch<StoreType, unknown, allACTypes>) => {
+    return (dispatch: ThunkDispatch<StoreType, unknown, any>) => {
         let promise = dispatch(getAuthUserData())
         Promise.all([promise])
             .then(() => {
