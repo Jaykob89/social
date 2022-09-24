@@ -16,7 +16,7 @@ export type FormDataType = {
     rememberMe: boolean
 }
 
-type LoginFormValuesTypeKeys = Extract<keyof FormDataType, string>
+export type LoginFormValuesTypeKeys = Extract<keyof FormDataType, string>
 
 
 type LoginFormOwnProps = {

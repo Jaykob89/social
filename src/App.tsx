@@ -33,6 +33,10 @@ type mapStateToPropsType = {
 type propsType = mapDispatchType & mapStateToPropsType
 
 class App extends React.Component<propsType, RootStateType> {
+     catchAllUnhandledErrors = (e:PromiseRejectionEvent)=>{
+         alert('Some error occurred')
+     }
+
     componentDidMount() {
         this.props.initializedApp()
     }
@@ -67,7 +71,7 @@ let AppContainer = compose<React.ComponentType>(
     withRouter,
     connect(mapStateToProps, {initializedApp}))(App);
 
-export let SamuraiJSApp = () => {
+export let SamuraiJSApp:React.FC = () => {
     return <HashRouter>
         <Provider store={store}>
             <AppContainer/>

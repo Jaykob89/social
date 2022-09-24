@@ -15,16 +15,17 @@ type FormDataType = {
     newPostText: string
 }
 
-type myPostPropsType = {
+export type mapPropsType = {
     posts: Array<postsType>
+}
+export type dispatchPropsType = {
     addPost: (newPostText: string) => void
-    newText: string
 }
 
 
 const maxLength10 = maxLengthCreator(10)
 
-const MyPosts = React.memo((props: myPostPropsType) => {
+const MyPosts: React.FC<mapPropsType & dispatchPropsType> = props => {
     let postsElement = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
 
     let OnAddPost = (values: FormDataType) => {
@@ -38,7 +39,8 @@ const MyPosts = React.memo((props: myPostPropsType) => {
             {postsElement}
         </div>
     </div>
-});
+}
+;
 
 const AddPostForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return (

@@ -8,7 +8,7 @@ import ProfileDataForm from "./ProfileDataForm";
 
 
 type propsType = {
-    profile: profileType
+    profile: profileType | null
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean
@@ -46,7 +46,6 @@ const ProfileInfo: React.FC<propsType> = ({profile, status, updateStatus, isOwne
             <img alt={'avatar_photo'} src={profile.photos.large || userPhoto}/>
             {isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
             {editMode
-                // @ts-ignore
                 ? <ProfileDataForm initialValues={profile} profile={profile} onSubmit={onSubmit}/>
                 : <ProfileData goToEditMode={() => {setEditMode(true)
                 }} profile={profile} isOwner={isOwner}/>}
@@ -93,7 +92,7 @@ type ContactType = {
     [key: string]: string | null
 }
 
-export const Contact = ({contactTitle, contactValue}: any) => {
+export const Contact = ({contactTitle, contactValue}: ContactType) => {
     return <div className={s.contact}>{contactTitle}:{contactValue}</div>
 }
 

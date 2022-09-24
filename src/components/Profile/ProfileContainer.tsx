@@ -15,7 +15,7 @@ type pathParamTypes = {
 }
 
 type mapStatePropsType = {
-    profile: profileType
+    profile: profileType | null
     isAuth: boolean
     status: string
     authUserId: string
@@ -47,7 +47,7 @@ class ProfileContainer extends React.Component<PropsType> {
         this.refreshProfile()
     }
 
-    componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>, snapshot?: any) {
+    componentDidUpdate(prevProps: PropsType, prevState: PropsType) {
         if (this.props.match.params.userId !== prevProps.match.params.userId)
             this.refreshProfile()
     }

@@ -1,13 +1,14 @@
-import {instance, ApiResponseType, ResultCodeEnum, ResultCodeForCaptcha} from "./api";
+import {instance, ApiResponseType} from "./api";
+import {ResponseType} from "../redux/auth-reducer";
 
 export const authApi = {
     me() {
-        return instance.get<ApiResponseType<meResponseDataType>>(`auth/me`).then(res => res.data)
+        return instance.get<ResponseType>(`auth/me`).then(res=>res.data)
     },
     login(email: string, password: string, rememberMe = false, captcha: null | string = null) {
         // return instance.post<LoginMeResponseType>(`auth/login`, {email, password, rememberMe, captcha})
         //     .then(res=>res.data)
-        return instance.post<ApiResponseType<LoginMeResponseDataType,ResultCodeEnum | ResultCodeForCaptcha>>(`auth/login`, {
+        return instance.post<any>(`auth/login`, {
             email,
             password,
             rememberMe,

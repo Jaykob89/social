@@ -16,7 +16,7 @@ export type profileType = {
 }
 
 type profileInfoType = {
-    profile: profileType
+    profile: profileType | null
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean

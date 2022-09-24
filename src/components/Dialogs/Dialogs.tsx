@@ -5,7 +5,7 @@ import DialogItem from "./DialogItem/DialogItem";
 import {massagesPageType} from "../../redux/store";
 import {AddMessageFormRedux} from "./AddMessageForm/AddMessageForm";
 
-type FormDataType = {
+export type NewMessageFormDataType = {
     newDialogElementAdd: string
 }
 
@@ -16,14 +16,16 @@ export type DialogPropsType = {
     addMessage: (values: string) => void
     isAuth: boolean
 }
-const Dialogs = (props: DialogPropsType) => {
+
+
+const Dialogs: React.FC<DialogPropsType> = (props) => {
 
     let state = props.dialogsPage
 
     let dialogsElements = state.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
     let messagesElement = state.messages.map(message => <Message message={message.message}/>)
 
-    let OnAddMessage = (values: FormDataType) => {
+    let OnAddMessage = (values: NewMessageFormDataType) => {
         props.addMessage(values.newDialogElementAdd);
     }
     return (

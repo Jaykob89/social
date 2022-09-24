@@ -15,7 +15,7 @@
 //     }
 // }
 import {profileType} from "../components/Profile/Profile";
-import {instance,ApiResponseType} from "./api";
+import {instance} from "./api";
 import {photosType} from "../types/types";
 
 
@@ -31,19 +31,20 @@ export const profileAPI = {
         return instance.get<string>('profile/status/' + userId).then(res=>res.data)
     },
     updateStatus(status: string) {
-        return instance.put<ApiResponseType>('profile/status', {status: status}).then(res=>res.data)
+        return instance.put<any>('profile/status', {status: status}).then(res=>res.data)
     },
 
     savePhoto(photoFile: string) {
         const formData = new FormData();
         formData.append('image', photoFile)
-        return instance.put<ApiResponseType<savePhotoResponseDataType>>('profile/photo', formData, {
+        return instance.put<any>('profile/photo', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         })
+            .then(res=>res.data)
     },
     saveProfile(profile: profileType) {
-        return instance.put<ApiResponseType>('profile/profile', profile).then(res=>res.data)
+        return instance.put<any>('profile/profile', profile).then(res=>res.data)
     }
 }

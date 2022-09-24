@@ -1,8 +1,5 @@
-import {Dispatch} from "redux";
 import {ResultCodeEnum, ResultCodeForCaptcha} from "../api/api";
-import {ThunkDispatch} from "redux-thunk";
-import {allACTypes, StoreType} from "./store";
-import {FormAction, stopSubmit} from "redux-form";
+import {stopSubmit} from "redux-form";
 import {AxiosResponse} from "axios";
 import {authApi} from "../api/auth-Api";
 import {securityApi} from "../api/security-Api";
@@ -72,7 +69,7 @@ export const getAuthUserData = (): ThunkType => {
     return async (dispatch) => {
         let meData = await authApi.me()
         if (meData.resultCode === ResultCodeEnum.Success) {
-            let {id, login, email} = meData.data.data
+            let {id, login, email} = meData.data
             dispatch(setAuthUserDate(id, email, login, true))
         }
     }
@@ -82,7 +79,7 @@ export const getAuthUserData = (): ThunkType => {
 export const login = (email: string, password: string, rememberMe: boolean, captcha: string): ThunkType => async (dispatch) => {
     // let data = await authApi.login(email, password, rememberMe, captcha)
     let data = await authApi.login(email, password, rememberMe, captcha)
-    if (data.resultCode === ResultCodeEnum.Success) {
+    if (data.data.resultCode === ResultCodeEnum.Success) {
         await dispatch(getAuthUserData())
     } else {
         if (data.data.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {

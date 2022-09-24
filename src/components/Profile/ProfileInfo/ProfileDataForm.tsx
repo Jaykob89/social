@@ -9,15 +9,11 @@ import {profileType} from "../Profile";
 
 type FormDataType = {
     profile:profileType
-    fullName:string
-    lookingForAJob:string
-    lookingForAJobDescription:string
-
 }
 
 // type ProfileFileKeys = GetStringKeys<profileType>
 
-const ProfileDataForm:React.FC<InjectedFormProps<any>> = ({handleSubmit, profile, error}:any) => {
+const ProfileDataForm:React.FC<InjectedFormProps<profileType,FormDataType>&FormDataType> = ({handleSubmit, profile, error}) => {
     return <form onSubmit={handleSubmit}>
         <div>
             <button>save</button>
@@ -47,5 +43,5 @@ const ProfileDataForm:React.FC<InjectedFormProps<any>> = ({handleSubmit, profile
     </form>
 }
 
-const ProfileDataFormReduxForm = reduxForm({form: 'edit-profile'})(ProfileDataForm)
+const ProfileDataFormReduxForm = reduxForm<profileType,FormDataType>({form: 'edit-profile'})(ProfileDataForm)
 export default ProfileDataFormReduxForm
